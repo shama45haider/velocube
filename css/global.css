@@ -18,16 +18,16 @@
   --accent-deep: #c2410c;
   --accent-soft: rgba(255, 92, 26, 0.12);
 
-  --font-display: "Clash Display", "Segoe UI", Arial, sans-serif;
-  --font-body: "Satoshi", "Segoe UI", Arial, sans-serif;
+  --font-display: "Cabinet Grotesk", "Segoe UI", Arial, sans-serif;
+  --font-body: "General Sans", "Segoe UI", Arial, sans-serif;
 
-  --container: 72rem;
-  --gutter: clamp(1rem, 4vw, 2rem);
-  --radius: 12px;
-  --radius-lg: 20px;
-  --header-h: 4.5rem;
+  --container: 76rem;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --radius: 14px;
+  --radius-lg: 22px;
+  --header-h: 4.75rem;
 
-  --section-pad: clamp(4rem, 9vw, 7.5rem);
+  --section-pad: clamp(5rem, 11vw, 9.5rem);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -54,7 +54,7 @@ html {
 body {
   font-family: var(--font-body);
   font-size: 1.0625rem;
-  line-height: 1.65;
+  line-height: 1.72;
   color: var(--text);
   background: var(--bg);
   overflow-x: hidden;
@@ -115,23 +115,25 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.01em;
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
   text-wrap: balance;
   overflow-wrap: break-word;
 }
 
 h1 {
-  font-size: clamp(2.5rem, 6.5vw, 4.25rem);
+  font-size: clamp(2.9rem, 8vw, 5.5rem);
 }
 
 h2 {
-  font-size: clamp(1.85rem, 4.5vw, 2.9rem);
+  font-size: clamp(2.1rem, 5.5vw, 3.6rem);
 }
 
 h3 {
   font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 p {
@@ -159,8 +161,8 @@ p {
 }
 
 .section-head {
-  max-width: 42rem;
-  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+  max-width: 46rem;
+  margin-bottom: clamp(3rem, 7vw, 5rem);
 }
 
 .section-head.center {
@@ -170,25 +172,26 @@ p {
 
 .section-head p {
   color: var(--text-dim);
-  margin-top: 1rem;
-  font-size: clamp(1rem, 1.6vw, 1.125rem);
+  margin-top: 1.4rem;
+  font-size: clamp(1.05rem, 1.7vw, 1.2rem);
+  line-height: 1.75;
 }
 
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .eyebrow::before {
   content: "";
-  width: 1.5rem;
+  width: 2.25rem;
   height: 2px;
   background: var(--accent);
   border-radius: 2px;
@@ -200,11 +203,14 @@ p {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 3rem;
-  padding: 0.75rem 1.75rem;
+  min-height: 3.25rem;
+  padding: 0.9rem 2rem;
   border-radius: 999px;
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.9375rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   line-height: 1.2;
   text-align: center;
   transition: transform 0.25s var(--ease), background 0.25s, border-color 0.25s, box-shadow 0.25s;

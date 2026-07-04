@@ -252,6 +252,113 @@
 }
 
 /* ==========================================================================
+   Marquee strip
+   ========================================================================== */
+.marquee {
+  background: var(--accent);
+  transform: rotate(-1.3deg) scale(1.02);
+  overflow: hidden;
+  padding-block: 0.9rem;
+  margin-block: -0.5rem;
+  position: relative;
+  z-index: 3;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 2.75rem;
+  width: max-content;
+  animation: marquee-scroll 30s linear infinite;
+}
+
+.marquee-track span {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0a0a0b;
+  white-space: nowrap;
+}
+
+.marquee-track .star {
+  font-size: 0.8rem;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   Carousels (shared: features, add-ons, work)
+   ========================================================================== */
+.car-nav {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.car-nav button {
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  transition: border-color 0.25s, background 0.25s, color 0.25s;
+}
+
+.car-nav button:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #0a0a0b;
+}
+
+.car-nav svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.car-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.75rem;
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.car-track::-webkit-scrollbar {
+  display: none;
+}
+
+.car-track > * {
+  scroll-snap-align: start;
+}
+
+.car-track.dragging {
+  scroll-snap-type: none;
+  cursor: grabbing;
+  user-select: none;
+}
+
+.car-track.dragging a {
+  pointer-events: none;
+}
+
+/* ==========================================================================
    Stats strip
    ========================================================================== */
 .stats {
@@ -272,8 +379,8 @@
 
 .stat-num {
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 6vw, 3.8rem);
-  font-weight: 700;
+  font-size: clamp(3.2rem, 8vw, 5.75rem);
+  font-weight: 800;
   line-height: 1;
   color: var(--text);
 }
@@ -302,54 +409,89 @@
 }
 
 /* ==========================================================================
-   Features
+   Features carousel
    ========================================================================== */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(15.5rem, 100%), 1fr));
-  gap: 1rem;
+.features-track {
+  counter-reset: feat;
 }
 
 .feature-card {
+  counter-increment: feat;
+  position: relative;
+  flex: 0 0 min(19rem, 78%);
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.5rem 1.4rem;
-  transition: transform 0.35s var(--ease), border-color 0.35s, box-shadow 0.35s;
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.75rem 1.9rem;
+  transition: transform 0.35s var(--ease), background 0.35s, border-color 0.35s;
+}
+
+.feature-card::before {
+  content: counter(feat, decimal-leading-zero);
+  position: absolute;
+  top: 1.4rem;
+  right: 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  opacity: 0.55;
+  transition: color 0.35s, opacity 0.35s;
 }
 
 .feature-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(255, 92, 26, 0.5);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 92, 26, 0.12);
+  transform: translateY(-6px);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.feature-card:hover::before {
+  color: #0a0a0b;
+  opacity: 0.7;
 }
 
 .feature-card .icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 10px;
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 12px;
   background: var(--accent-soft);
   color: var(--accent);
-  margin-bottom: 1rem;
+  margin-bottom: 1.4rem;
+  transition: background 0.35s, color 0.35s;
+}
+
+.feature-card:hover .icon {
+  background: rgba(10, 10, 11, 0.14);
+  color: #0a0a0b;
 }
 
 .feature-card .icon svg {
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .feature-card h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.4rem;
+  font-size: 1.25rem;
+  margin-bottom: 0.55rem;
+  transition: color 0.35s;
 }
 
 .feature-card p {
   color: var(--text-dim);
-  font-size: 0.925rem;
-  line-height: 1.55;
+  font-size: 0.975rem;
+  line-height: 1.6;
+  transition: color 0.35s;
+}
+
+.feature-card:hover h3 {
+  color: #0a0a0b;
+}
+
+.feature-card:hover p {
+  color: rgba(10, 10, 11, 0.75);
 }
 
 /* ==========================================================================
@@ -505,23 +647,43 @@ input[type="range"].tier-range::-moz-range-thumb {
 }
 
 .tier-stops button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  font-weight: 800;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
   color: var(--text-dim);
-  padding: 0.5rem 0.4rem;
+  padding: 0.5rem 0.3rem;
   min-width: 2.75rem;
   min-height: 2.75rem;
   border-radius: 8px;
   transition: color 0.25s;
 }
 
+.tier-stops button .sub {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  opacity: 0.8;
+}
+
 .tier-stops button[aria-pressed="true"] {
   color: var(--accent);
 }
 
-.tier-stops button:first-child { text-align: left; }
-.tier-stops button:last-child { text-align: right; }
+.tier-stops button:first-child { align-items: flex-start; }
+.tier-stops button:last-child { align-items: flex-end; }
+
+@media (max-width: 560px) {
+  .tier-stops button .sub {
+    display: none;
+  }
+}
 
 .tier-panels {
   margin-top: 2rem;
@@ -767,86 +929,53 @@ details.acc .acc-body li::before {
 }
 
 /* ==========================================================================
-   Add-ons
+   Add-ons carousel
    ========================================================================== */
-.addons-list {
-  max-width: 46rem;
-  margin-inline: auto;
+.addon-card {
+  flex: 0 0 min(17rem, 72%);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.9rem 1.7rem;
+  transition: transform 0.35s var(--ease), border-color 0.35s;
 }
 
-.addons-list li {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 0.9rem 0.25rem;
-  border-bottom: 1px solid var(--border);
+.addon-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 92, 26, 0.55);
 }
 
-.addons-list .name {
-  font-weight: 500;
-}
-
-.addons-list .dots {
-  flex: 1;
-  border-bottom: 1px dotted var(--border-strong);
-  transform: translateY(-0.35rem);
-}
-
-.addons-list .price {
+.addon-card .a-price {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1;
   color: var(--accent);
-  white-space: nowrap;
+  margin-bottom: 0.9rem;
+}
+
+.addon-card .a-price small {
+  font-size: 0.55em;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+.addon-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.45rem;
+}
+
+.addon-card p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 /* ==========================================================================
    Work carousel
    ========================================================================== */
-.work-nav {
-  display: flex;
-  gap: 0.6rem;
-  justify-content: flex-end;
-  margin-bottom: 1.25rem;
-}
-
-.work-nav button {
-  width: 2.9rem;
-  height: 2.9rem;
-  border-radius: 50%;
-  border: 1px solid var(--border-strong);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text);
-  transition: border-color 0.25s, background 0.25s;
-}
-
-.work-nav button:hover {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-}
-
-.work-nav svg {
-  width: 1.2rem;
-  height: 1.2rem;
-}
-
-.work-track {
-  display: flex;
-  gap: 1.25rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 0.75rem;
-  scrollbar-width: none;
-}
-
-.work-track::-webkit-scrollbar {
-  display: none;
-}
-
 .work-card {
-  flex: 0 0 min(26rem, 86%);
-  scroll-snap-align: start;
+  flex: 0 0 min(30rem, 88%);
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -893,7 +1022,7 @@ details.acc .acc-body li::before {
 }
 
 .work-preview {
-  height: 12rem;
+  height: 14rem;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -80,20 +80,65 @@
     setTier(range.value);
   }
 
-  /* ---- Work carousel ---- */
-  var track = document.querySelector(".work-track");
-
-  function slideBy(dir) {
+  /* ---- Carousels: arrow buttons + mouse drag (touch scrolls natively) ---- */
+  document.querySelectorAll("[data-carousel]").forEach(function (car) {
+    var track = car.querySelector(".car-track");
     if (!track) return;
-    var card = track.querySelector(".work-card");
-    var step = card ? card.getBoundingClientRect().width + 20 : 360;
-    track.scrollBy({ left: dir * step, behavior: reducedMotion ? "auto" : "smooth" });
-  }
 
-  var prevBtn = document.querySelector("[data-carousel-prev]");
-  var nextBtn = document.querySelector("[data-carousel-next]");
-  if (prevBtn) prevBtn.addEventListener("click", function () { slideBy(-1); });
-  if (nextBtn) nextBtn.addEventListener("click", function () { slideBy(1); });
+    function step() {
+      var card = track.firstElementChild;
+      if (!card) return 320;
+      var gap = parseFloat(getComputedStyle(track).columnGap) || 20;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function slide(dir) {
+      track.scrollBy({ left: dir * step(), behavior: reducedMotion ? "auto" : "smooth" });
+    }
+
+    var prev = car.querySelector("[data-car-prev]");
+    var next = car.querySelector("[data-car-next]");
+    if (prev) prev.addEventListener("click", function () { slide(-1); });
+    if (next) next.addEventListener("click", function () { slide(1); });
+
+    var down = false;
+    var moved = false;
+    var startX = 0;
+    var startLeft = 0;
+
+    track.addEventListener("pointerdown", function (e) {
+      if (e.pointerType !== "mouse") return;
+      down = true;
+      moved = false;
+      startX = e.clientX;
+      startLeft = track.scrollLeft;
+      track.classList.add("dragging");
+      track.setPointerCapture(e.pointerId);
+    });
+
+    track.addEventListener("pointermove", function (e) {
+      if (!down) return;
+      var dx = e.clientX - startX;
+      if (Math.abs(dx) > 5) moved = true;
+      track.scrollLeft = startLeft - dx;
+    });
+
+    function release() {
+      down = false;
+      track.classList.remove("dragging");
+    }
+    track.addEventListener("pointerup", release);
+    track.addEventListener("pointercancel", release);
+
+    // Swallow the click that follows a drag so links aren't triggered.
+    track.addEventListener("click", function (e) {
+      if (moved) {
+        e.preventDefault();
+        e.stopPropagation();
+        moved = false;
+      }
+    }, true);
+  });
 
   /* ---- Quote form (Formspree) ---- */
   var form = document.getElementById("quote-form");

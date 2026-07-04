@@ -115,10 +115,32 @@
   }
 }
 
-/* ---- 3D cube field ---- */
-.cube-field {
+/* ---- Hero visual: mascot + 3D cube field ---- */
+.hero-visual {
   position: relative;
-  height: clamp(20rem, 40vw, 30rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(20rem, 40vw, 32rem);
+}
+
+.hero-mascot {
+  position: relative;
+  z-index: 1;
+  width: min(23rem, 90%);
+  height: auto;
+  mix-blend-mode: lighten;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-mascot {
+    animation: cube-bob 7s ease-in-out infinite alternate;
+  }
+}
+
+.cube-field {
+  position: absolute;
+  inset: 0;
   perspective: 1100px;
   pointer-events: none;
 }
@@ -129,24 +151,24 @@
 }
 
 .cube-wrap.w1 {
-  --s: clamp(9rem, 16vw, 13rem);
-  top: 18%;
-  left: 22%;
+  --s: clamp(6.5rem, 11vw, 9rem);
+  top: 0;
+  left: 0;
   --bob: 8s;
 }
 
 .cube-wrap.w2 {
-  --s: clamp(4.5rem, 8vw, 6.5rem);
-  top: 0;
-  right: 6%;
+  --s: clamp(4rem, 7vw, 5.5rem);
+  bottom: 12%;
+  right: 0;
   --bob: 6s;
   animation-delay: -2s;
 }
 
 .cube-wrap.w3 {
-  --s: clamp(3rem, 5.5vw, 4rem);
-  bottom: 4%;
-  left: 8%;
+  --s: clamp(2.5rem, 4.5vw, 3.5rem);
+  bottom: 2%;
+  left: 10%;
   --bob: 5s;
   animation-delay: -1s;
 }
@@ -198,12 +220,19 @@
     grid-template-columns: 1fr;
   }
 
-  .cube-field {
+  .hero-visual {
     position: absolute;
     inset: 0;
-    height: auto;
-    opacity: 0.28;
+    min-height: 0;
     z-index: -1;
+  }
+
+  .hero-mascot {
+    display: none;
+  }
+
+  .cube-field {
+    opacity: 0.28;
   }
 
   .hero-copy {
@@ -1101,6 +1130,14 @@ details.acc .acc-body li::before {
    ========================================================================== */
 .closing-cta {
   text-align: center;
+}
+
+.cta-mascot {
+  display: block;
+  margin: 0 auto 1.5rem;
+  width: min(14rem, 55vw);
+  height: auto;
+  mix-blend-mode: lighten;
 }
 
 .closing-cta h2 {

@@ -283,11 +283,7 @@ p {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.25rem;
-  letter-spacing: 0.08em;
+  gap: 0.6rem;
   color: var(--text);
 }
 
@@ -295,10 +291,31 @@ p {
   color: var(--text);
 }
 
-.brand svg {
-  width: 2rem;
-  height: 2rem;
+.brand img {
+  width: 2.15rem;
+  height: auto;
   flex: none;
+}
+
+.brand-word {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 0.005em;
+  transform: skewX(-6deg);
+  line-height: 1;
+}
+
+.brand-word .bw-velo {
+  background: linear-gradient(100deg, #ffa51e, #ff5c1a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.brand-word .bw-cube {
+  color: var(--text);
 }
 
 .nav-menu {

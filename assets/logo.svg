@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 36" width="180" height="36" role="img" aria-label="Velocube">
+  <g>
+    <polygon points="16,2 28,9 16,16 4,9" fill="#FF7A3D"/>
+    <polygon points="4,9 16,16 16,30 4,23" fill="#FF5C1A"/>
+    <polygon points="28,9 28,23 16,30 16,16" fill="#C2410C"/>
+  </g>
+  <text x="38" y="25" font-family="'Clash Display','Segoe UI',Arial,sans-serif" font-size="19" font-weight="600" letter-spacing="1.5" fill="#FAFAFA">VELOCUBE</text>
+</svg>

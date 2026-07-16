@@ -2142,6 +2142,82 @@ body.home-theme h2 {
   }
 }
 
+/* ---- Service mini-cards (homepage "What we can build" grid) — a more
+   colorful, iconography-forward variant of feature-card-light with a
+   gradient top edge, a glowing icon badge, and a circular hover arrow. ---- */
+.svc-mini {
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(clamp(1.75rem, 3vw, 2.25rem) + 4px);
+  border-color: rgba(255, 92, 26, 0.14);
+}
+
+.svc-mini::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--orange-bright), var(--orange) 55%, var(--orange-deep));
+}
+
+.svc-mini .icon-badge {
+  width: 2.85rem;
+  height: 2.85rem;
+  border-radius: 11px;
+  margin-bottom: 1.15rem;
+  box-shadow: 0 8px 18px rgba(255, 92, 26, 0.28);
+  transition: transform 0.3s var(--ease);
+}
+
+.svc-mini .icon-badge svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.svc-mini h3 {
+  font-size: 1.05rem;
+}
+
+.svc-mini p {
+  font-size: 0.9rem;
+  padding-right: 1.5rem;
+}
+
+.svc-mini .go-arrow {
+  position: absolute;
+  right: 1.1rem;
+  bottom: 1.1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid var(--hborder-strong);
+  display: grid;
+  place-items: center;
+  color: var(--htext-faint);
+  background: #fff;
+  transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.3s var(--ease);
+}
+
+.svc-mini .go-arrow svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.svc-mini:hover {
+  border-color: rgba(255, 92, 26, 0.4);
+}
+
+.svc-mini:hover .icon-badge {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.svc-mini:hover .go-arrow {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+  transform: rotate(-45deg);
+}
+
 /* ---- Stat band: bold oversized numeral statement, Grammarly's "17x ROI"
    pattern, on a soft off-white field ---- */
 .stat-band {

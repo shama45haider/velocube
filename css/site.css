@@ -2218,6 +2218,48 @@ body.home-theme h2 {
   transform: rotate(-45deg);
 }
 
+/* ---- "Why choose" cards — a quieter orange accent than the services
+   grid: a numbered badge and a left edge that lights up on hover. ---- */
+.why-card {
+  position: relative;
+  padding-left: calc(clamp(1.75rem, 3vw, 2.25rem) + 4px);
+}
+
+.why-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--orange-bright), var(--orange-deep));
+  opacity: 0.35;
+  transition: opacity 0.3s;
+}
+
+.why-card:hover::before {
+  opacity: 1;
+}
+
+.why-card:hover {
+  border-color: rgba(255, 92, 26, 0.35);
+}
+
+.why-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding-inline: 0.4rem;
+  border-radius: 10px;
+  background: linear-gradient(155deg, rgba(255, 139, 77, 0.16), rgba(255, 92, 26, 0.1));
+  border: 1px solid rgba(255, 92, 26, 0.25);
+  color: var(--orange-deep);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 1.1rem;
+}
+
 /* ---- Stat band: bold oversized numeral statement, Grammarly's "17x ROI"
    pattern, on a soft off-white field ---- */
 .stat-band {

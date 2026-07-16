@@ -4,21 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Website Management | Velocube</title>
-  <meta name="description" content="Velocube's monthly management plan: updates, security monitoring, bug fixes, weekly SEO reports, priority support, and ongoing improvements. We handle the technical side.">
+  <title>Hosting &amp; Website Management | Velocube</title>
+  <meta name="description" content="Velocube hosting and care plans. Self-Managed Hosting from $25/mo with a client panel, Managed Hosting at $60/mo where we handle every change by email, and full Website Management at $200/mo.">
   <link rel="canonical" href="https://velocube.net/management.html">
   <meta name="robots" content="index, follow">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://velocube.net/management.html">
   <meta property="og:site_name" content="Velocube">
-  <meta property="og:title" content="Website Management | Velocube">
-  <meta property="og:description" content="A monthly plan that keeps your website updated, secure, and improving after launch.">
+  <meta property="og:title" content="Hosting &amp; Website Management | Velocube">
+  <meta property="og:description" content="Host it yourself from a client panel, or let us handle every change by email. Plans from $25/mo.">
   <meta property="og:image" content="https://velocube.net/assets/og-image.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Website Management | Velocube">
-  <meta name="twitter:description" content="A monthly plan that keeps your website updated, secure, and improving after launch.">
+  <meta name="twitter:title" content="Hosting &amp; Website Management | Velocube">
+  <meta name="twitter:description" content="Host it yourself from a client panel, or let us handle every change by email. Plans from $25/mo.">
   <meta name="twitter:image" content="https://velocube.net/assets/og-image.png">
 
   <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -54,25 +54,166 @@
   </header>
 
   <main id="main">
-    <!-- ================= Hero ================= -->
-    <section class="light-hero">
+    <!-- ================= Hero: status panel ================= -->
+    <section class="hero-panel">
       <div class="container">
-        <h1>Your website, managed for you</h1>
-        <p class="lede">A monthly plan that keeps your website updated, secure, and improving long after launch. You run your business. We run your website.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-primary" href="contact.html">Ask About Management</a>
-          <a class="btn btn-ghost" href="pricing.html">See Pricing</a>
+        <div>
+          <h1>Hosting and care, handled</h1>
+          <p class="lede">Host with us and run everything yourself from a client panel, or hand us the keys and we make every change from a simple email request.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary" href="#plans">See Plans</a>
+            <a class="btn btn-ghost" href="contact.html">Get a Quote</a>
+          </div>
+        </div>
+
+        <div class="status-panel" aria-hidden="true">
+          <div class="sp-head">
+            <span class="sp-dot"></span>
+            yourbusiness.com
+          </div>
+          <div class="sp-row">
+            <span class="sp-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              Uptime
+            </span>
+            <span class="sp-value ok">99.9%</span>
+          </div>
+          <div class="sp-row">
+            <span class="sp-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+              SSL certificate
+            </span>
+            <span class="sp-value ok">Valid</span>
+          </div>
+          <div class="sp-row">
+            <span class="sp-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+              Backups
+            </span>
+            <span class="sp-value ok">Daily</span>
+          </div>
+          <div class="sp-row">
+            <span class="sp-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+              Last update
+            </span>
+            <span class="sp-value">Today</span>
+          </div>
+          <div class="sp-row">
+            <span class="sp-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="6" rx="1.5"/><rect x="2" y="15" width="20" height="6" rx="1.5"/><path d="M6 6h.01M6 18h.01"/></svg>
+              Storage used
+            </span>
+            <span class="sp-value">2.1 of 5 GB</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ================= What's included ================= -->
-    <section class="section" style="padding-top: clamp(2.5rem, 5vw, 3.5rem);">
+    <!-- ================= Plans ================= -->
+    <section class="section" id="plans" style="padding-top: clamp(2.5rem, 5vw, 3.5rem);">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Plans</p>
+          <h2>Pick how hands-on you want to be</h2>
+          <p>Every plan includes hosting, SSL, daily backups, and uptime monitoring. The difference is who makes the changes.</p>
+        </div>
+
+        <div class="plan-grid" data-reveal-group>
+          <article class="plan-card" data-reveal>
+            <p class="plan-eyebrow">You stay in control</p>
+            <p class="plan-name">Self-Managed Hosting</p>
+            <p class="plan-price">$25<small>/mo</small></p>
+            <p class="plan-desc">We keep it online and secure. You make the changes yourself from your client panel.</p>
+            <ul>
+              <li>1 GB storage included</li>
+              <li>Full client panel access</li>
+              <li>Free SSL and daily backups</li>
+              <li>99.9% uptime monitoring</li>
+              <li>Edit your content anytime</li>
+            </ul>
+            <a class="btn btn-ghost" href="contact.html">Get Started</a>
+          </article>
+
+          <article class="plan-card featured" data-reveal>
+            <span class="plan-badge">Most Popular</span>
+            <p class="plan-eyebrow">We make the changes</p>
+            <p class="plan-name">Managed Hosting</p>
+            <p class="plan-price">$60<small>/mo</small></p>
+            <p class="plan-desc">Email us any change and we make it for you. No panel to learn and nothing to maintain.</p>
+            <ul>
+              <li>5 GB storage included</li>
+              <li>Change requests by simple email</li>
+              <li>Free SSL and daily backups</li>
+              <li>99.9% uptime monitoring</li>
+              <li>Client panel still included</li>
+            </ul>
+            <a class="btn btn-primary" href="contact.html">Get Started</a>
+          </article>
+
+          <article class="plan-card" data-reveal>
+            <p class="plan-eyebrow">The full care plan</p>
+            <p class="plan-name">Website Management</p>
+            <p class="plan-price">$200<small>/mo</small></p>
+            <p class="plan-desc">Hosting plus everything else. Updates, security, reporting, and priority support handled for you.</p>
+            <ul>
+              <li>10 GB storage included</li>
+              <li>Everything in Managed Hosting</li>
+              <li>Weekly SEO and analytics reports</li>
+              <li>Priority same-day support</li>
+              <li>Discounted rates on new work</li>
+            </ul>
+            <a class="btn btn-ghost" href="contact.html">Get Started</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Extras ================= -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Extras</p>
+          <h2>Need a little more?</h2>
+          <p>Add any of these to any plan. Billed monthly alongside your subscription.</p>
+        </div>
+
+        <div class="rate-list" data-reveal>
+          <div class="rate-row">
+            <h3>Extra Storage</h3>
+            <span class="note">Room for more images, files, and backups</span>
+            <span class="leader"></span>
+            <span class="rate">+$5<small>/mo per 1 GB</small></span>
+          </div>
+          <div class="rate-row">
+            <h3>Extra Mailbox</h3>
+            <span class="note">Another inbox on your own domain</span>
+            <span class="leader"></span>
+            <span class="rate">+$6<small>/mo</small></span>
+          </div>
+          <div class="rate-row">
+            <h3>Staging Environment</h3>
+            <span class="note">A private copy to test changes before they go live</span>
+            <span class="leader"></span>
+            <span class="rate">+$25<small>/mo</small></span>
+          </div>
+          <div class="rate-row">
+            <h3>Domain Registration</h3>
+            <span class="note">Registered and renewed in your name</span>
+            <span class="leader"></span>
+            <span class="rate">$25<small>/year</small></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= What the care plan covers ================= -->
+    <section class="section" style="padding-top: 0;">
       <div class="container">
         <div class="section-head" data-reveal>
           <p class="eyebrow">Included</p>
-          <h2>What the plan covers</h2>
-          <p>Everything below is included every month. No tickets to file and no hourly billing for routine work.</p>
+          <h2>What the care plan covers</h2>
+          <p>Everything below is included in Website Management every month. No tickets to file and no hourly billing for routine work.</p>
         </div>
 
         <div class="feature-grid-light" data-reveal-group>
@@ -125,13 +266,39 @@
       </div>
     </section>
 
+    <!-- ================= Also monthly ================= -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Also Monthly</p>
+          <h2>Grow while we maintain</h2>
+          <p>Optional monthly services you can add to any plan above.</p>
+        </div>
+
+        <div class="rate-list" data-reveal>
+          <div class="rate-row">
+            <h3>Monthly SEO Management</h3>
+            <span class="note">Ongoing rankings work with monthly reports</span>
+            <span class="leader"></span>
+            <span class="rate">$999<small>/mo</small></span>
+          </div>
+          <div class="rate-row">
+            <h3>Google Business Profile</h3>
+            <span class="note">Your presence on Google Maps and Search</span>
+            <span class="leader"></span>
+            <span class="rate">$599<small>/mo</small></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= The point ================= -->
     <section class="section" style="padding-top: 0;">
       <div class="container">
         <div class="info-panel" data-reveal>
           <h2>You never deal with the technical side</h2>
-          <p>Most business owners don't have time to manage a website, and they shouldn't have to. With the management plan, updates, security, reports, and fixes are all handled for you. When you want something changed, you send one message.</p>
-          <p>Plans start at <strong style="color: var(--htext);">$299/month</strong>. Cancel anytime.</p>
+          <p>Most business owners don't have time to manage a website, and they shouldn't have to. Pick the level that fits. Run it yourself from the client panel, or send us an email and consider it done.</p>
+          <p>Hosting starts at <strong style="color: var(--htext);">$25/month</strong> and the full care plan is <strong style="color: var(--htext);">$200/month</strong>. Cancel anytime.</p>
         </div>
       </div>
     </section>
@@ -139,7 +306,7 @@
     <section class="cta-band">
       <div class="container" data-reveal>
         <h2>Stop managing your own website</h2>
-        <p>Tell us about your site and we'll send you a management quote within 24 hours.</p>
+        <p>Tell us about your site and we'll send you a plan recommendation within 24 hours.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="contact.html">Get a Quote</a>
           <a class="btn btn-ghost" href="tel:+17186350662">Call (718) 635-0662</a>

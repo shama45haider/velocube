@@ -2545,6 +2545,473 @@ body.home-theme .role {
   max-width: 44rem;
 }
 
+/* ==========================================================================
+   Per-page hero variants
+   Every page opens with its own hero so the pages never feel interchangeable.
+   Home keeps .light-hero + .hero-showcase; the five below are unique.
+   ========================================================================== */
+
+/* Shared hero scaffolding for the split-style variants */
+.hero-split,
+.hero-panel,
+.hero-editorial,
+.hero-contact {
+  position: relative;
+  padding-top: calc(var(--header-h) + clamp(3rem, 7vw, 5rem));
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  overflow: hidden;
+}
+
+.hero-split .container,
+.hero-panel .container,
+.hero-editorial .container,
+.hero-contact .container {
+  position: relative;
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.hero-split h1,
+.hero-panel h1,
+.hero-editorial h1,
+.hero-contact h1 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--htext);
+}
+
+.hero-split .lede,
+.hero-panel .lede,
+.hero-editorial .lede,
+.hero-contact .lede {
+  color: var(--htext-dim);
+  font-size: clamp(1.05rem, 1.7vw, 1.2rem);
+  margin-top: 1.3rem;
+  max-width: 32rem;
+}
+
+.hero-split .hero-ctas,
+.hero-panel .hero-ctas,
+.hero-editorial .hero-ctas,
+.hero-contact .hero-ctas {
+  margin-top: 2rem;
+}
+
+/* ---- Services: copy left, icon mosaic right ---- */
+.hero-split::before {
+  content: "";
+  position: absolute;
+  top: -14rem;
+  right: -10rem;
+  width: 42rem;
+  height: 36rem;
+  background: radial-gradient(40% 45% at 50% 50%, rgba(255, 92, 26, 0.14), transparent 100%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.hero-split .container {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+}
+
+.hero-mosaic {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.mosaic-tile {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  border: 1px solid var(--hborder);
+  border-radius: 14px;
+  color: var(--orange);
+  box-shadow: var(--hshadow-sm);
+  transition: transform 0.3s var(--ease);
+}
+
+.mosaic-tile:hover {
+  transform: translateY(-3px);
+}
+
+.mosaic-tile svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.mosaic-tile.accent {
+  background: linear-gradient(155deg, var(--orange-bright), var(--orange));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(255, 92, 26, 0.28);
+}
+
+/* ---- Pricing: centered on a tinted band with a ghost currency mark ---- */
+.hero-figure {
+  position: relative;
+  padding-top: calc(var(--header-h) + clamp(3.5rem, 8vw, 5.5rem));
+  padding-bottom: clamp(3rem, 6vw, 4.5rem);
+  background: var(--hbg-soft);
+  border-bottom: 1px solid var(--hborder);
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero-figure::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--hborder) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hborder) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 75% at 50% 40%, #000 20%, transparent 78%);
+  mask-image: radial-gradient(ellipse 70% 75% at 50% 40%, #000 20%, transparent 78%);
+  pointer-events: none;
+}
+
+.hero-figure .ghost-figure {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(14rem, 34vw, 28rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 92, 26, 0.13);
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+}
+
+.hero-figure .container {
+  position: relative;
+}
+
+.hero-figure h1 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--htext);
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+.hero-figure .lede {
+  color: var(--htext-dim);
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  max-width: 34rem;
+  margin: 1.4rem auto 0;
+}
+
+.hero-figure .hero-ctas {
+  justify-content: center;
+  margin-top: 2.1rem;
+}
+
+/* ---- Management: copy left, live status panel right ---- */
+.hero-panel::before {
+  content: "";
+  position: absolute;
+  top: -12rem;
+  right: -8rem;
+  width: 40rem;
+  height: 34rem;
+  background: radial-gradient(42% 46% at 50% 50%, rgba(255, 92, 26, 0.13), transparent 100%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.hero-panel .container {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+}
+
+.status-panel {
+  background: #fff;
+  border: 1px solid var(--hborder);
+  border-radius: var(--hradius-card);
+  box-shadow: var(--hshadow-md);
+  overflow: hidden;
+}
+
+.status-panel .sp-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--hborder);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--htext-dim);
+}
+
+.status-panel .sp-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16);
+  flex: none;
+}
+
+.sp-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--hborder);
+  font-size: 0.9rem;
+}
+
+.sp-row:last-child {
+  border-bottom: 0;
+}
+
+.sp-row .sp-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--htext-dim);
+}
+
+.sp-row .sp-label svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--orange);
+  flex: none;
+}
+
+.sp-row .sp-value {
+  font-weight: 600;
+  color: var(--htext);
+}
+
+.sp-row .sp-value.ok {
+  color: #15803d;
+}
+
+/* ---- Careers: editorial, orange rule, open roles beside the headline ---- */
+.hero-editorial::before {
+  content: "";
+  position: absolute;
+  top: -12rem;
+  left: -10rem;
+  width: 40rem;
+  height: 34rem;
+  background: radial-gradient(42% 46% at 50% 50%, rgba(255, 92, 26, 0.13), transparent 100%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.hero-editorial .container {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+}
+
+.hero-editorial .hero-copy {
+  border-left: 3px solid var(--orange);
+  padding-left: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.roles-list {
+  border-top: 1px solid var(--hborder-strong);
+}
+
+.roles-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid var(--hborder);
+}
+
+.roles-list .rl-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--htext);
+}
+
+.roles-list .rl-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange-deep);
+}
+
+/* ---- Contact: copy left, direct-contact card right ---- */
+.hero-contact::before {
+  content: "";
+  position: absolute;
+  top: -12rem;
+  right: -8rem;
+  width: 38rem;
+  height: 32rem;
+  background: radial-gradient(42% 46% at 50% 50%, rgba(255, 92, 26, 0.13), transparent 100%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.hero-contact .container {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+}
+
+.quick-contact {
+  background: #fff;
+  border: 1px solid var(--hborder);
+  border-radius: var(--hradius-card);
+  box-shadow: var(--hshadow-md);
+  padding: 0.5rem clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.quick-contact a {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid var(--hborder);
+  color: var(--htext);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.quick-contact a:last-child {
+  border-bottom: 0;
+}
+
+.quick-contact a:hover {
+  color: var(--orange-deep);
+}
+
+.quick-contact svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--orange);
+  flex: none;
+}
+
+@media (max-width: 900px) {
+  .hero-split .container,
+  .hero-panel .container,
+  .hero-editorial .container,
+  .hero-contact .container {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-mosaic {
+    max-width: 20rem;
+  }
+
+  .hero-figure .ghost-figure {
+    font-size: 18rem;
+  }
+}
+
+/* ==========================================================================
+   Plan card flair: a wiping gradient edge and a faint wash on hover
+   ========================================================================== */
+.plan-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.plan-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  border-radius: var(--hradius-card) var(--hradius-card) 0 0;
+  background: linear-gradient(90deg, var(--orange-bright), var(--orange) 55%, var(--orange-deep));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+
+.plan-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 92, 26, 0.055), transparent 48%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 38px rgba(20, 18, 15, 0.1);
+}
+
+.plan-card:hover::before {
+  transform: scaleX(1);
+}
+
+.plan-card:hover::after {
+  opacity: 1;
+}
+
+.plan-card.featured::before {
+  transform: scaleX(1);
+}
+
+.plan-card.featured::after {
+  opacity: 0.55;
+}
+
+/* ==========================================================================
+   Footer accents (all pages)
+   ========================================================================== */
+.site-footer {
+  position: relative;
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--orange-deep) 15%, var(--orange) 50%, var(--orange-deep) 85%, transparent);
+}
+
+.footer-col h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.footer-col h4::before {
+  content: "";
+  width: 1rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--orange);
+  flex: none;
+}
+
+body.home-theme .footer-word {
+  -webkit-text-stroke: 1px rgba(255, 92, 26, 0.22);
+}
+
+body.home-theme .footer-bottom {
+  position: relative;
+  border-top-color: transparent;
+}
+
+body.home-theme .footer-bottom::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 92, 26, 0.4), transparent);
+}
+
 /* ---- Monthly / add-on rate rows, light ---- */
 body.home-theme .rate-list {
   border-top: 1px solid var(--hborder-strong);
@@ -2560,4 +3027,29 @@ body.home-theme .rate-row .note {
 
 body.home-theme .rate-row .leader {
   border-bottom-color: var(--hborder-strong);
+}
+
+/* On narrow screens the dotted-leader layout runs past the viewport, so the
+   name and price share the first line and the note wraps beneath. */
+@media (max-width: 700px) {
+  .rate-row {
+    flex-wrap: wrap;
+    gap: 0.35rem 0.9rem;
+  }
+
+  .rate-row h3 {
+    flex: 1 1 auto;
+  }
+
+  .rate-row .leader {
+    display: none;
+  }
+
+  .rate-row .rate {
+    margin-left: auto;
+  }
+
+  .rate-row .note {
+    flex: 1 1 100%;
+  }
 }

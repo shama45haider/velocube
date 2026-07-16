@@ -1873,26 +1873,123 @@ body.home-theme .arrow-link:hover {
   box-shadow: var(--hshadow-md);
 }
 
-.hero-showcase img {
-  width: 100%;
-  max-width: 26rem;
-  margin-inline: auto;
-  padding-top: clamp(1.5rem, 4vw, 2.5rem);
-}
-
 .hero-showcase .showcase-bar {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  padding: 1.1rem 0 0;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.hero-showcase .showcase-bar span {
+.hero-showcase .showcase-bar .dot {
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.18);
+  flex: none;
+}
+
+.hero-showcase .showcase-url {
+  margin-left: 0.75rem;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.75rem;
+  font-family: var(--font-body);
+}
+
+/* Abstract mock webpage — stands in for a product screenshot without
+   depicting any real interface. */
+.showcase-screen {
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.mock-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: clamp(1.5rem, 4vw, 2.25rem);
+  margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mock-logo {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 6px;
+  background: linear-gradient(155deg, var(--orange-bright), var(--orange));
+  flex: none;
+}
+
+.mock-link {
+  width: 2.75rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.mock-btn {
+  margin-left: auto;
+  width: 4rem;
+  height: 1.5rem;
+  border-radius: 6px;
+  background: var(--orange);
+  flex: none;
+}
+
+.mock-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding-bottom: clamp(1.5rem, 4vw, 2.25rem);
+  margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mock-line {
+  height: 0.85rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.mock-line.lg {
+  width: 78%;
+  height: 1.15rem;
+}
+
+.mock-line.md {
+  width: 60%;
+}
+
+.mock-line.sm {
+  width: 42%;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.mock-cta {
+  margin-top: 0.6rem;
+  width: 7rem;
+  height: 2rem;
+  border-radius: 8px;
+  background: linear-gradient(155deg, var(--orange-bright), var(--orange));
+}
+
+.mock-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.mock-card {
+  height: 4rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mock-card:nth-child(2) {
+  border-color: rgba(255, 92, 26, 0.35);
 }
 
 /* ---- Trust bar — pill row echoing Deputy's capability strip / Grammarly's

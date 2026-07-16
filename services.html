@@ -30,7 +30,7 @@
 
   <link rel="stylesheet" href="css/site.css">
 </head>
-<body>
+<body class="home-theme">
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <header class="site-header">
@@ -54,148 +54,151 @@
   </header>
 
   <main id="main">
-    <section class="page-hero">
+    <!-- ================= Hero ================= -->
+    <section class="light-hero">
       <div class="container">
-        <p class="eyebrow">Services</p>
-        <h1>What we build and manage</h1>
-        <p class="lede">Nineteen services, one company. Every project is custom. If you need something that isn't listed here, ask — the answer is usually yes.</p>
+        <h1>Everything you need, under one roof</h1>
+        <p class="lede">Nineteen services covering development, infrastructure, branding, and growth. One company builds it all, so you never juggle vendors again.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="contact.html">Get a Quote</a>
+          <a class="btn btn-ghost" href="pricing.html">See Pricing</a>
+        </div>
       </div>
     </section>
 
-    <!-- ============ Development ============ -->
-    <section class="section">
+    <!-- ================= Services grid + filter ================= -->
+    <section class="section" style="padding-top: clamp(2.5rem, 5vw, 3.5rem);">
       <div class="container">
-        <div class="svc-group" data-reveal-group>
-          <h2 class="svc-group-title" data-reveal>Development</h2>
+        <div class="svc-filter" role="tablist" aria-label="Filter services by category" data-reveal>
+          <button class="filter-tab" type="button" role="tab" data-filter="all" aria-selected="true">All Services</button>
+          <button class="filter-tab" type="button" role="tab" data-filter="development" aria-selected="false">Development</button>
+          <button class="filter-tab" type="button" role="tab" data-filter="infrastructure" aria-selected="false">Infrastructure</button>
+          <button class="filter-tab" type="button" role="tab" data-filter="brand" aria-selected="false">Brand &amp; Design</button>
+          <button class="filter-tab" type="button" role="tab" data-filter="growth" aria-selected="false">Growth &amp; Support</button>
+        </div>
 
-          <div class="svc-entry" id="websites" data-reveal>
-            <span class="num" aria-hidden="true">01</span>
+        <div class="feature-grid-light cols-4" id="svc-grid" data-reveal-group>
+          <!-- Development -->
+          <a class="feature-card-light svc-mini" id="websites" href="contact.html" data-category="development" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
             <h3>Business Websites</h3>
-            <p>A custom website designed and built for your business. Includes mobile-friendly layouts, fast load times, contact forms, and search engine basics set up from day one. Your website is usually the first thing customers check — it should look professional and work everywhere.</p>
-          </div>
-
-          <div class="svc-entry" id="apps" data-reveal>
-            <span class="num" aria-hidden="true">02</span>
+            <p>Fast, mobile-friendly websites designed around your brand and built to turn visitors into customers.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="apps" href="contact.html" data-category="development" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></span>
             <h3>Mobile App Development</h3>
-            <p>Apps for iOS and Android, built for your customers or your internal team. Includes design, development, and help publishing to the app stores. Useful when your business needs features a website can't offer, like push notifications or offline access.</p>
-          </div>
-
-          <div class="svc-entry" id="dashboards" data-reveal>
-            <span class="num" aria-hidden="true">03</span>
+            <p>Native iOS and Android apps for your customers or your team, designed, built, and published for you.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="dashboards" href="contact.html" data-category="development" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-6 3 4 5-8"/></svg></span>
             <h3>Custom Dashboard Panels</h3>
-            <p>A private admin panel where you manage your website's content, orders, customers, and data in one place. Built around how your business actually works. You make changes yourself without waiting on a developer.</p>
-          </div>
-
-          <div class="svc-entry" id="portals" data-reveal>
-            <span class="num" aria-hidden="true">04</span>
+            <p>A private control panel to manage your content, orders, and data without ever touching code.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="portals" href="contact.html" data-category="development" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
             <h3>Customer Portals</h3>
-            <p>Secure login areas where your customers view their accounts, orders, documents, or bookings. Includes account creation, password recovery, and permission controls. Cuts down repeat questions because clients can find their own information.</p>
-          </div>
-
-          <div class="svc-entry" id="databases" data-reveal>
-            <span class="num" aria-hidden="true">05</span>
+            <p>Secure login areas where clients view orders, documents, and bookings on their own.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="databases" href="contact.html" data-category="development" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span>
             <h3>SQL Database Setup</h3>
-            <p>A properly structured database for your website or app. Includes design, setup, security, and backups. A well-built database keeps your data fast, organized, and safe as your business grows.</p>
-          </div>
-
-          <div class="svc-entry" id="api" data-reveal>
-            <span class="num" aria-hidden="true">06</span>
+            <p>A fast, well-structured database that keeps your data organized, secure, and ready to scale.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="api" href="contact.html" data-category="development" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
             <h3>API Integrations</h3>
-            <p>Connections between your website and the tools you already use — payment processors, booking systems, shipping carriers, CRMs, and more. Data moves automatically instead of being copied by hand.</p>
-          </div>
-
-          <div class="svc-entry" id="ai" data-reveal>
-            <span class="num" aria-hidden="true">07</span>
+            <p>We connect your site to the tools you already use so your data flows automatically.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="ai" href="contact.html" data-category="development" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/></svg></span>
             <h3>AI Integrations</h3>
-            <p>AI features added to your website or app. Common examples: a chatbot trained on your business that answers customer questions 24/7, automated content tools, and smart search. Built and tested so they help customers instead of frustrating them.</p>
-          </div>
-        </div>
+            <p>Smart chatbots and automation trained on your business, working around the clock.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
 
-        <!-- ============ Infrastructure ============ -->
-        <div class="svc-group" data-reveal-group>
-          <h2 class="svc-group-title" data-reveal>Infrastructure</h2>
-
-          <div class="svc-entry" id="domains" data-reveal>
-            <span class="num" aria-hidden="true">08</span>
-            <h3>Domain Registration &amp; Configuration</h3>
-            <p>We register your domain name and handle the technical setup — DNS records, redirects, and SSL certificates. You own the domain. We make sure it points to the right place and stays secure.</p>
-          </div>
-
-          <div class="svc-entry" id="email" data-reveal>
-            <span class="num" aria-hidden="true">09</span>
+          <!-- Infrastructure -->
+          <a class="feature-card-light svc-mini" id="domains" href="contact.html" data-category="infrastructure" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg></span>
+            <h3>Domain Registration &amp; Setup</h3>
+            <p>We register your domain and handle DNS, redirects, and SSL so it just works.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="email" href="contact.html" data-category="infrastructure" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
             <h3>Business Email Setup</h3>
-            <p>Professional email addresses on your own domain, like name@yourbusiness.com. Includes account setup, spam protection, and configuration on your devices. A branded email address looks more credible than a free one.</p>
-          </div>
-
-          <div class="svc-entry" id="hosting" data-reveal>
-            <span class="num" aria-hidden="true">10</span>
+            <p>Professional email on your own domain that looks credible and keeps spam out.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="hosting" href="contact.html" data-category="infrastructure" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="6" rx="1.5"/><rect x="2" y="15" width="20" height="6" rx="1.5"/><path d="M6 6h.01M6 18h.01"/></svg></span>
             <h3>Website Hosting</h3>
-            <p>Fast, secure hosting for your website. Includes SSL, backups, and uptime monitoring. We manage the servers so you never have to think about them.</p>
-          </div>
-
-          <div class="svc-entry" id="security" data-reveal>
-            <span class="num" aria-hidden="true">11</span>
+            <p>Fast, secure, monitored hosting that we manage for you, so you never think about servers.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="security" href="contact.html" data-category="infrastructure" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
             <h3>Security Improvements</h3>
-            <p>Protection for your website and customer data. Includes SSL setup, secure logins, software updates, and fixes for common vulnerabilities. Prevents the kind of problems that are expensive to clean up later.</p>
-          </div>
-
-          <div class="svc-entry" id="performance" data-reveal>
-            <span class="num" aria-hidden="true">12</span>
+            <p>SSL, secure logins, and hardening that protect your site and your customers' data.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="performance" href="contact.html" data-category="infrastructure" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
             <h3>Performance Optimization</h3>
-            <p>We make slow websites fast. Includes image compression, code cleanup, caching, and Core Web Vitals improvements. Faster sites keep more visitors and rank better on Google.</p>
-          </div>
-        </div>
+            <p>We make slow sites fast, boosting rankings and keeping visitors around longer.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
 
-        <!-- ============ Brand & Design ============ -->
-        <div class="svc-group" data-reveal-group>
-          <h2 class="svc-group-title" data-reveal>Brand &amp; Design</h2>
-
-          <div class="svc-entry" id="logos" data-reveal>
-            <span class="num" aria-hidden="true">13</span>
+          <!-- Brand & Design -->
+          <a class="feature-card-light svc-mini" id="logos" href="contact.html" data-category="brand" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
             <h3>Logo Design</h3>
-            <p>A custom logo designed for your business, delivered in every format you need — web, print, and social media. Includes revisions until it's right.</p>
-          </div>
-
-          <div class="svc-entry" id="branding" data-reveal>
-            <span class="num" aria-hidden="true">14</span>
+            <p>A custom logo delivered in every format you need for web, print, and social.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="branding" href="contact.html" data-category="brand" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.06 11.9l8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z"/></svg></span>
             <h3>Branding</h3>
-            <p>A complete visual identity: colors, fonts, logo usage, and design rules. Everything your business puts out — website, cards, social posts — looks like it comes from the same company.</p>
-          </div>
-
-          <div class="svc-entry" id="graphics" data-reveal>
-            <span class="num" aria-hidden="true">15</span>
+            <p>A complete visual identity so everything your business puts out looks unmistakably yours.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="graphics" href="contact.html" data-category="brand" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></span>
             <h3>Custom Graphics</h3>
-            <p>Graphics made for your business: social media posts, banners, menus, flyers, and website imagery. Designed to match your brand instead of looking like a template.</p>
-          </div>
-        </div>
+            <p>Social posts, banners, and imagery designed to match your brand, never a template.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
 
-        <!-- ============ Growth & Support ============ -->
-        <div class="svc-group" data-reveal-group style="margin-bottom: 0;">
-          <h2 class="svc-group-title" data-reveal>Growth &amp; Support</h2>
-
-          <div class="svc-entry" id="seo" data-reveal>
-            <span class="num" aria-hidden="true">16</span>
+          <!-- Growth & Support -->
+          <a class="feature-card-light svc-mini" id="seo" href="contact.html" data-category="growth" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/><path d="M8 11l2-2 2 2 3-3"/></svg></span>
             <h3>SEO Optimization</h3>
-            <p>We optimize your website to rank on Google, Bing, and Yahoo. Includes keyword research, on-page optimization, technical fixes, local SEO, and structured data. Available as a one-time project or monthly service.</p>
-          </div>
-
-          <div class="svc-entry" id="analytics" data-reveal>
-            <span class="num" aria-hidden="true">17</span>
-            <h3>Google Analytics &amp; Search Console Setup</h3>
-            <p>We connect your website to Google's free measurement tools and configure them correctly. You see who visits your site, what they do, and which searches bring them in. Includes conversion tracking so you know what's working.</p>
-          </div>
-
-          <div class="svc-entry" id="maintenance" data-reveal>
-            <span class="num" aria-hidden="true">18</span>
+            <p>Keyword research, technical fixes, and local SEO that get you found on Google, Bing, and Yahoo.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="analytics" href="contact.html" data-category="growth" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span>
+            <h3>Analytics &amp; Search Console</h3>
+            <p>Full tracking setup so you can see who visits, what they do, and what converts.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="maintenance" href="contact.html" data-category="growth" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-2.4z"/></svg></span>
             <h3>Website Maintenance</h3>
-            <p>Ongoing updates, backups, bug fixes, and monitoring. Available as a monthly plan — see the <a href="management.html">management page</a> for details. Your website stays current without you touching it.</p>
-          </div>
-
-          <div class="svc-entry" id="consulting" data-reveal>
-            <span class="num" aria-hidden="true">19</span>
+            <p>Updates, backups, and monitoring that keep your site current while you focus on business.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="feature-card-light svc-mini" id="consulting" href="contact.html" data-category="growth" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
             <h3>Technical Consulting</h3>
-            <p>Straight answers about your website, tools, or technical decisions. Useful before a big purchase, a redesign, or when something isn't working and you want a second opinion. No jargon, no upsell.</p>
-          </div>
+            <p>Straight, jargon-free answers before a big decision, a redesign, or a fix.</p>
+            <span class="go-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
         </div>
       </div>
     </section>
@@ -203,7 +206,7 @@
     <section class="cta-band">
       <div class="container" data-reveal>
         <h2>Need something from this list?</h2>
-        <p>Tell us what you're looking for. You'll get a quote within 24 hours.</p>
+        <p>Tell us what you're looking for and you'll get a clear quote within 24 hours.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="contact.html">Get a Quote</a>
           <a class="btn btn-ghost" href="pricing.html">See Pricing</a>

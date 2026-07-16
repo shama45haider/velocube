@@ -2429,3 +2429,135 @@ body.home-theme .info-panel {
 
 /* Footer stays on the dark system for contrast under a light page —
    mirrors Deputy's own dark footer beneath a light site. */
+
+/* ==========================================================================
+   Shared light-theme building blocks used across the reconstructed pages
+   ========================================================================== */
+
+/* Reused .role cards read as raised on white */
+body.home-theme .role {
+  box-shadow: var(--hshadow-sm);
+}
+
+/* ---- Services filter: a plain underline tab row, no pill chips ---- */
+.svc-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem clamp(1.25rem, 3vw, 2.25rem);
+  border-bottom: 1px solid var(--hborder);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.filter-tab {
+  position: relative;
+  padding: 0.9rem 0.2rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(0.9rem, 1.6vw, 1.02rem);
+  color: var(--htext-faint);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.filter-tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transition: transform 0.25s var(--ease);
+}
+
+.filter-tab:hover {
+  color: var(--htext);
+}
+
+.filter-tab[aria-selected="true"] {
+  color: var(--htext);
+}
+
+.filter-tab[aria-selected="true"]::after {
+  transform: scaleX(1);
+}
+
+.svc-mini.is-hidden {
+  display: none;
+}
+
+/* ---- FAQ accordion (native details), light ---- */
+.faq-list {
+  max-width: 46rem;
+  margin-inline: auto;
+  border-top: 1px solid var(--hborder);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--hborder);
+}
+
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.4rem 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  color: var(--htext);
+  transition: color 0.2s;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  flex: none;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--orange);
+  transition: transform 0.3s var(--ease);
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq-item summary:hover {
+  color: var(--orange-deep);
+}
+
+.faq-item .faq-body {
+  padding: 0 0 1.5rem;
+  color: var(--htext-dim);
+  max-width: 44rem;
+}
+
+/* ---- Monthly / add-on rate rows, light ---- */
+body.home-theme .rate-list {
+  border-top: 1px solid var(--hborder-strong);
+}
+
+body.home-theme .rate-row {
+  border-bottom: 1px solid var(--hborder);
+}
+
+body.home-theme .rate-row .note {
+  color: var(--htext-faint);
+}
+
+body.home-theme .rate-row .leader {
+  border-bottom-color: var(--hborder-strong);
+}

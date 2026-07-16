@@ -81,6 +81,27 @@
     });
   }
 
+  /* ---- Services category filter ---- */
+  var filterTabs = document.querySelectorAll(".filter-tab");
+  var svcCards = document.querySelectorAll("#svc-grid .svc-mini");
+
+  if (filterTabs.length && svcCards.length) {
+    filterTabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        var filter = tab.getAttribute("data-filter");
+
+        filterTabs.forEach(function (t) {
+          t.setAttribute("aria-selected", String(t === tab));
+        });
+
+        svcCards.forEach(function (card) {
+          var show = filter === "all" || card.getAttribute("data-category") === filter;
+          card.classList.toggle("is-hidden", !show);
+        });
+      });
+    });
+  }
+
   /* ---- Footer year ---- */
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();

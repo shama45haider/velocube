@@ -30,7 +30,7 @@
 
   <link rel="stylesheet" href="css/site.css">
 </head>
-<body>
+<body class="home-theme">
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <header class="site-header">
@@ -54,11 +54,11 @@
   </header>
 
   <main id="main">
-    <section class="page-hero">
+    <!-- ================= Hero ================= -->
+    <section class="light-hero">
       <div class="container">
-        <p class="eyebrow">Website Management</p>
         <h1>Your website, managed for you</h1>
-        <p class="lede">A monthly plan that keeps your website updated, secure, and improving after launch. You run your business. We run your website.</p>
+        <p class="lede">A monthly plan that keeps your website updated, secure, and improving long after launch. You run your business. We run your website.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="contact.html">Ask About Management</a>
           <a class="btn btn-ghost" href="pricing.html">See Pricing</a>
@@ -66,67 +66,72 @@
       </div>
     </section>
 
-    <!-- ============ What's included ============ -->
-    <section class="section">
+    <!-- ================= What's included ================= -->
+    <section class="section" style="padding-top: clamp(2.5rem, 5vw, 3.5rem);">
       <div class="container">
         <div class="section-head" data-reveal>
           <p class="eyebrow">Included</p>
           <h2>What the plan covers</h2>
-          <p>Everything below is included every month. No tickets to file, no hourly billing for routine work.</p>
+          <p>Everything below is included every month. No tickets to file and no hourly billing for routine work.</p>
         </div>
 
-        <div class="bracket-grid cols-2" data-reveal-group>
-          <div class="bracket-card" data-reveal>
+        <div class="feature-grid-light" data-reveal-group>
+          <div class="feature-card-light" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
             <h3>Website Updates</h3>
-            <p>Content changes, new images, updated hours, menu edits — send them over and we make them. Your site stays current.</p>
+            <p>Content changes, new images, updated hours, and menu edits. Send them over and we make them so your site always stays current.</p>
           </div>
-          <div class="bracket-card" data-reveal>
+          <div class="feature-card-light" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
             <h3>Security Monitoring</h3>
-            <p>We watch for threats, keep software patched, and maintain SSL and backups. Problems get caught before customers notice.</p>
+            <p>We watch for threats, patch software, and maintain SSL and backups so problems get caught before your customers ever notice.</p>
           </div>
-          <div class="bracket-card" data-reveal>
+          <div class="feature-card-light" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-2.4z"/></svg></span>
             <h3>Bug Fixes</h3>
-            <p>If something breaks, we fix it. Broken forms, layout issues, and errors are covered — not billed separately.</p>
+            <p>If something breaks, we fix it. Broken forms, layout issues, and errors are all covered, never billed separately.</p>
           </div>
-          <div class="bracket-card" data-reveal>
-            <h3>Performance Optimization</h3>
-            <p>We keep your site fast as it grows. Speed checks, image optimization, and Core Web Vitals monitoring are ongoing.</p>
+          <div class="feature-card-light" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+            <h3>Performance Tuning</h3>
+            <p>We keep your site fast as it grows with ongoing speed checks, image optimization, and Core Web Vitals monitoring.</p>
           </div>
-          <div class="bracket-card" data-reveal>
+          <div class="feature-card-light" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/><path d="M8 11l2-2 2 2 3-3"/></svg></span>
             <h3>Weekly SEO Reports</h3>
-            <p>A short weekly report on your search rankings and what changed. You see progress without asking for it.</p>
+            <p>A short weekly report on your search rankings and what changed, so you see progress without ever having to ask.</p>
           </div>
-          <div class="bracket-card" data-reveal>
+          <div class="feature-card-light" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-6 3 4 5-8"/></svg></span>
             <h3>Analytics Reports</h3>
-            <p>Regular reports on your traffic: who visits, where they come from, and what they do on your site.</p>
+            <p>Regular reports on your traffic covering who visits, where they come from, and what they do on your site.</p>
           </div>
-          <div class="bracket-card" data-reveal>
+          <div class="feature-card-light" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15 9 22 9 17 14 19 22 12 17 5 22 7 14 2 9 9 9 12 2"/></svg></span>
             <h3>Priority Support</h3>
-            <p>Management clients go to the front of the line. Requests are handled first, usually the same day.</p>
+            <p>Management clients go to the front of the line. Requests are handled first, usually the very same day.</p>
           </div>
-          <div class="bracket-card" data-reveal>
-            <h3>Discounted Additional Work</h3>
+          <div class="feature-card-light" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r=".5"/></svg></span>
+            <h3>Discounted Extra Work</h3>
             <p>New pages, features, and projects are billed at a reduced rate for management clients.</p>
           </div>
-          <div class="bracket-card" data-reveal>
-            <h3>New Feature Development</h3>
-            <p>Need a booking system or a new section later? We build it on a site we already know, which keeps cost and turnaround down.</p>
-          </div>
-          <div class="bracket-card" data-reveal>
-            <h3>Ongoing Improvements</h3>
-            <p>We suggest and make small improvements over time — better layouts, clearer calls to action, updated content.</p>
+          <div class="feature-card-light" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg></span>
+            <h3>New Features</h3>
+            <p>Want a booking system or a new section later? We build it on a site we already know, which keeps cost and turnaround low.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ The point ============ -->
+    <!-- ================= The point ================= -->
     <section class="section" style="padding-top: 0;">
       <div class="container">
         <div class="info-panel" data-reveal>
           <h2>You never deal with the technical side</h2>
-          <p>Most business owners don't have time to manage a website, and they shouldn't have to. With the management plan, updates, security, reports, and fixes are handled for you. If you want something changed, you send one message.</p>
-          <p>Plans start around <strong style="color: var(--text);">$99/month</strong> (estimate — final price depends on your site's size and needs). Cancel anytime.</p>
+          <p>Most business owners don't have time to manage a website, and they shouldn't have to. With the management plan, updates, security, reports, and fixes are all handled for you. When you want something changed, you send one message.</p>
+          <p>Plans start at <strong style="color: var(--htext);">$299/month</strong>. Cancel anytime.</p>
         </div>
       </div>
     </section>

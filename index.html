@@ -61,7 +61,7 @@
   }
   </script>
 </head>
-<body>
+<body class="home-theme">
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <!-- ================= Header ================= -->
@@ -89,51 +89,35 @@
 
   <main id="main">
     <!-- ================= Hero ================= -->
-    <section class="home-hero">
+    <section class="light-hero">
       <div class="container">
-        <div>
-          <p class="eyebrow"><span class="idx">00</span>Digital Services for Business</p>
-          <h1>Everything your business needs to run <span class="serif-accent">online.</span></h1>
-          <p class="lede">Velocube builds, launches, and maintains your online presence. Websites, apps, branding, hosting, and ongoing support — from one company.</p>
-          <div class="hero-ctas">
-            <a class="btn btn-primary" href="contact.html">Get a Quote</a>
-            <a class="btn btn-ghost" href="services.html">View Services</a>
-          </div>
-          <p class="hero-note">Quotes within 24 hours. Call <a href="tel:+17186350662">(718) 635-0662</a>.</p>
+        <span class="hero-tag"><span class="dot"></span>AI-Assisted Web Development</span>
+        <h1>Everything your business needs to run online</h1>
+        <p class="lede">Velocube builds, launches, and maintains your online presence. Websites, apps, branding, hosting, and ongoing support — from one company.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="contact.html">Get a Quote</a>
+          <a class="btn btn-ghost" href="services.html">View Services</a>
         </div>
-        <figure class="hero-frame">
+        <p class="hero-note">Quotes within 24 hours, no credit card required. Call <a href="tel:+17186350662">(718) 635-0662</a>.</p>
+
+        <figure class="hero-showcase" data-reveal>
+          <div class="showcase-bar" aria-hidden="true"><span></span><span></span><span></span></div>
           <img src="assets/velo1.png" alt="Velo, the Velocube mascot, working on a laptop" width="1024" height="1536" fetchpriority="high">
-          <figcaption>
-            <span>Velo — Build Team</span>
-            <span class="accent">Est. New York</span>
-          </figcaption>
         </figure>
       </div>
     </section>
 
-    <!-- ================= Capability marquee ================= -->
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span>Business Websites</span><span>Mobile Apps</span><span>Custom Dashboards</span><span>Customer Portals</span><span>AI Integrations</span><span>Branding &amp; Logos</span><span>SEO Optimization</span><span>Hosting &amp; Domains</span>
-        <span>Business Websites</span><span>Mobile Apps</span><span>Custom Dashboards</span><span>Customer Portals</span><span>AI Integrations</span><span>Branding &amp; Logos</span><span>SEO Optimization</span><span>Hosting &amp; Domains</span>
-      </div>
-    </div>
-
-    <!-- ================= Fact strip ================= -->
-    <section class="fact-strip" aria-label="Velocube at a glance">
-      <div class="container" data-reveal-group>
-        <div class="fact" data-reveal>
-          <p class="fact-num">One<span class="accent">.</span></p>
-          <p>Company for development, branding, hosting, and maintenance — no separate vendors to manage.</p>
-        </div>
-        <div class="fact" data-reveal>
-          <p class="fact-num">24<span class="accent">hr</span></p>
-          <p>Typical time to receive a quote after you send your project details.</p>
-        </div>
-        <div class="fact" data-reveal>
-          <p class="fact-num">19</p>
-          <p>Services covering development, infrastructure, branding, and growth.</p>
-        </div>
+    <!-- ================= Trust bar ================= -->
+    <section class="trust-bar" aria-label="What we build">
+      <div class="container">
+        <span class="trust-label">We build</span>
+        <span class="pill">Websites</span>
+        <span class="pill">Mobile Apps</span>
+        <span class="pill">Dashboards</span>
+        <span class="pill">Customer Portals</span>
+        <span class="pill">AI Integrations</span>
+        <span class="pill">Branding</span>
+        <span class="pill">SEO</span>
       </div>
     </section>
 
@@ -146,28 +130,37 @@
           <p>Most businesses hire separate companies for design, development, and hosting. Velocube handles all of it. You get one team and one point of contact.</p>
         </div>
 
-        <div class="bracket-grid cols-3" data-reveal-group>
-          <div class="bracket-card" data-reveal>
-            <span class="t-label">Build</span>
+        <div class="feature-grid-light" data-reveal-group>
+          <div class="feature-card-light" data-reveal>
+            <span class="icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </span>
             <h3>Development</h3>
             <p>Websites, mobile apps, dashboards, customer portals, databases, and API or AI integrations. Built to fit your business.</p>
+            <a class="card-link" href="services.html#websites">See development services</a>
           </div>
-          <div class="bracket-card" data-reveal>
-            <span class="t-label">Brand</span>
+          <div class="feature-card-light" data-reveal>
+            <span class="icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </span>
             <h3>Design &amp; Branding</h3>
             <p>Logos, brand identity, and custom graphics. Your business looks consistent everywhere it appears.</p>
+            <a class="card-link" href="services.html#branding">See branding services</a>
           </div>
-          <div class="bracket-card" data-reveal>
-            <span class="t-label">Run</span>
+          <div class="feature-card-light" data-reveal>
+            <span class="icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </span>
             <h3>Hosting &amp; Upkeep</h3>
             <p>Domains, business email, hosting, security, SEO, and ongoing maintenance. We keep everything running after launch.</p>
+            <a class="card-link" href="management.html">See management plan</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ================= Services overview ================= -->
-    <section class="section section-rule" style="padding-top: var(--section-pad);">
+    <section class="section section-rule" style="padding-top: var(--section-pad); background: var(--hbg-soft);">
       <div class="container">
         <div class="section-head" data-reveal>
           <p class="eyebrow"><span class="idx">02</span>Services</p>
@@ -175,49 +168,57 @@
           <p>A sample of what we offer. Each service is explained in full on the services page.</p>
         </div>
 
-        <div class="bracket-grid cols-4" data-reveal-group>
-          <a class="bracket-card" href="services.html#websites" data-reveal>
+        <div class="feature-grid-light cols-4" data-reveal-group>
+          <a class="feature-card-light" href="services.html#websites" data-reveal>
             <h3>Business Websites</h3>
             <p>Custom sites built for speed, search, and mobile.</p>
           </a>
-          <a class="bracket-card" href="services.html#apps" data-reveal>
+          <a class="feature-card-light" href="services.html#apps" data-reveal>
             <h3>Mobile Apps</h3>
             <p>iOS and Android apps for your customers or your team.</p>
           </a>
-          <a class="bracket-card" href="services.html#dashboards" data-reveal>
+          <a class="feature-card-light" href="services.html#dashboards" data-reveal>
             <h3>Custom Dashboards</h3>
             <p>Admin panels to manage your content, orders, and data.</p>
           </a>
-          <a class="bracket-card" href="services.html#portals" data-reveal>
+          <a class="feature-card-light" href="services.html#portals" data-reveal>
             <h3>Customer Portals</h3>
             <p>Secure logins and member areas for your clients.</p>
           </a>
-          <a class="bracket-card" href="services.html#ai" data-reveal>
+          <a class="feature-card-light" href="services.html#ai" data-reveal>
             <h3>AI Integrations</h3>
             <p>Chatbots and automation trained on your business.</p>
           </a>
-          <a class="bracket-card" href="services.html#branding" data-reveal>
+          <a class="feature-card-light" href="services.html#branding" data-reveal>
             <h3>Branding &amp; Logos</h3>
             <p>A complete identity for your business.</p>
           </a>
-          <a class="bracket-card" href="services.html#seo" data-reveal>
+          <a class="feature-card-light" href="services.html#seo" data-reveal>
             <h3>SEO Optimization</h3>
             <p>Get found on Google, Bing, and Yahoo.</p>
           </a>
-          <a class="bracket-card" href="services.html#hosting" data-reveal>
+          <a class="feature-card-light" href="services.html#hosting" data-reveal>
             <h3>Hosting &amp; Domains</h3>
             <p>Fast, secure hosting with your domain and email set up.</p>
           </a>
         </div>
 
-        <p style="margin-top: 1.75rem;" data-reveal>
+        <p style="margin-top: 1.75rem; text-align: center;" data-reveal>
           <a class="arrow-link" href="services.html">View all 19 services</a>
         </p>
       </div>
     </section>
 
+    <!-- ================= Stat band ================= -->
+    <section class="stat-band section">
+      <div class="container" data-reveal>
+        <p class="stat-num">24hr</p>
+        <p>Typical time to receive a quote. Velocube uses <strong>AI-assisted workflows</strong> to complete repetitive development tasks faster, with experienced developers reviewing every project.</p>
+      </div>
+    </section>
+
     <!-- ================= Pricing advantage ================= -->
-    <section class="section" style="padding-top: 0;">
+    <section class="section">
       <div class="container split">
         <div data-reveal>
           <p class="eyebrow"><span class="idx">03</span>Pricing</p>
@@ -238,36 +239,93 @@
       </div>
     </section>
 
-    <!-- ================= Why choose ================= -->
-    <section class="section" style="padding-top: 0;">
+    <!-- ================= Plans preview ================= -->
+    <section class="section" style="padding-top: 0; background: var(--hbg-soft); border-top: 1px solid var(--hborder);">
       <div class="container">
         <div class="section-head" data-reveal>
-          <p class="eyebrow"><span class="idx">04</span>Why Velocube</p>
+          <p class="eyebrow"><span class="idx">04</span>Plans</p>
+          <h2>Choose the right starting point</h2>
+          <p>Every project gets its own quote. These are estimates to help you plan a budget.</p>
+        </div>
+
+        <div class="plan-grid" data-reveal-group>
+          <article class="plan-card" data-reveal>
+            <p class="plan-eyebrow">For a single page</p>
+            <p class="plan-name">Starter</p>
+            <p class="plan-price">$80<small>+</small></p>
+            <p class="plan-desc">One custom page added to your existing site, matched to your design.</p>
+            <ul>
+              <li>One custom-built page</li>
+              <li>Mobile responsive</li>
+              <li>3 minor revisions included</li>
+            </ul>
+            <a class="btn btn-ghost" href="pricing.html">See details</a>
+          </article>
+
+          <article class="plan-card featured" data-reveal>
+            <span class="plan-badge">Most Common</span>
+            <p class="plan-eyebrow">For small businesses</p>
+            <p class="plan-name">Business</p>
+            <p class="plan-price">$300<small>+</small></p>
+            <p class="plan-desc">A complete website that covers what customers look for before they call.</p>
+            <ul>
+              <li>Up to 6 sections</li>
+              <li>Contact form and FAQ</li>
+              <li>Basic local SEO setup</li>
+            </ul>
+            <a class="btn btn-primary" href="contact.html">Get a Quote</a>
+          </article>
+
+          <article class="plan-card" data-reveal>
+            <p class="plan-eyebrow">For growing operations</p>
+            <p class="plan-name">Platform</p>
+            <p class="plan-price">$2,000<small>+</small></p>
+            <p class="plan-desc">Your website runs the business — dashboard, accounts, and support included.</p>
+            <ul>
+              <li>Custom admin dashboard</li>
+              <li>AI chatbot trained on your business</li>
+              <li>CRM and email integrations</li>
+            </ul>
+            <a class="btn btn-ghost" href="pricing.html">See details</a>
+          </article>
+        </div>
+
+        <p style="margin-top: 2rem; text-align: center;" data-reveal>
+          <a class="arrow-link" href="pricing.html">Compare all pricing tiers</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= Why choose ================= -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow"><span class="idx">05</span>Why Velocube</p>
           <h2>Why businesses work with us</h2>
         </div>
 
-        <div class="bracket-grid cols-3" data-reveal-group>
-          <div class="bracket-card" data-reveal>
+        <div class="feature-grid-light" data-reveal-group>
+          <div class="feature-card-light" data-reveal>
             <h3>One company handles everything</h3>
             <p>Design, development, hosting, and maintenance in one place. No juggling vendors.</p>
           </div>
-          <div class="bracket-card" data-reveal>
+          <div class="feature-card-light" data-reveal>
             <h3>Faster turnaround</h3>
             <p>AI-assisted workflows cut build times. Most projects finish sooner than agency timelines.</p>
           </div>
-          <div class="bracket-card" data-reveal>
+          <div class="feature-card-light" data-reveal>
             <h3>Clean, professional design</h3>
             <p>Modern layouts built for real customers, not design awards.</p>
           </div>
-          <div class="bracket-card" data-reveal>
+          <div class="feature-card-light" data-reveal>
             <h3>Transparent communication</h3>
             <p>Clear quotes, honest timelines, and updates while we build. No surprises.</p>
           </div>
-          <div class="bracket-card" data-reveal>
+          <div class="feature-card-light" data-reveal>
             <h3>Long-term support</h3>
             <p>We stay available after launch for updates, fixes, and new features.</p>
           </div>
-          <div class="bracket-card" data-reveal>
+          <div class="feature-card-light" data-reveal>
             <h3>Scalable solutions</h3>
             <p>Start with what you need now. Add features as your business grows.</p>
           </div>
@@ -287,7 +345,7 @@
           </ul>
         </div>
         <div data-reveal>
-          <p class="eyebrow"><span class="idx">05</span>After Launch</p>
+          <p class="eyebrow"><span class="idx">06</span>After Launch</p>
           <h2>We don't disappear after launch</h2>
           <p>Our monthly management plan keeps your website updated, secure, and improving. You run your business. We run your website.</p>
           <a class="arrow-link" href="management.html">Learn about management</a>

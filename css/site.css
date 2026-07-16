@@ -1656,3 +1656,593 @@ a.bracket-card:hover {
     transform: none;
   }
 }
+
+/* ==========================================================================
+   Home page — light theme
+   Modeled on Deputy.com and Grammarly.com: white surfaces, bold rounded
+   sans headlines, solid-fill rounded buttons, icon-topped feature cards,
+   a trust bar, and clean pricing-preview cards. Scoped to body.home-theme
+   so the rest of the site keeps the dark editorial system.
+   ========================================================================== */
+body.home-theme {
+  --hbg: #ffffff;
+  --hbg-soft: #f6f4f1;
+  --htext: #14120f;
+  --htext-dim: #5c584f;
+  --htext-faint: #8b8579;
+  --hborder: rgba(20, 18, 15, 0.09);
+  --hborder-strong: rgba(20, 18, 15, 0.16);
+  --hshadow-sm: 0 1px 2px rgba(20, 18, 15, 0.04);
+  --hshadow-md: 0 12px 28px rgba(20, 18, 15, 0.07);
+  --hradius-card: 20px;
+  --hradius-btn: 10px;
+
+  /* Re-map the base tokens too, so reused components (split panels,
+     info panels, check-lists) flip to the light palette automatically
+     instead of needing a light-mode override for every selector. */
+  --bg: var(--hbg);
+  --surface: #ffffff;
+  --surface-2: var(--hbg-soft);
+  --border: var(--hborder);
+  --border-strong: var(--hborder-strong);
+  --text: var(--htext);
+  --text-dim: var(--htext-dim);
+  --text-faint: var(--htext-faint);
+
+  background: var(--hbg);
+  color: var(--htext);
+}
+
+body.home-theme::before {
+  display: none;
+}
+
+/* ---- Header: solid white bar, no blur trick needed ---- */
+body.home-theme .site-header {
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid transparent;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+body.home-theme .site-header::before {
+  opacity: 0.85;
+}
+
+body.home-theme .site-header.scrolled {
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom-color: var(--hborder);
+  box-shadow: var(--hshadow-sm);
+}
+
+body.home-theme .brand-word .bw-cube,
+body.home-theme .brand {
+  color: var(--htext);
+}
+
+body.home-theme .nav-menu a:not(.btn) {
+  color: var(--htext-dim);
+}
+
+body.home-theme .nav-menu a:not(.btn):hover {
+  color: var(--htext);
+}
+
+body.home-theme .nav-menu a[aria-current="page"] {
+  color: var(--htext);
+}
+
+body.home-theme .nav-toggle span {
+  background: var(--htext);
+}
+
+@media (max-width: 900px) {
+  body.home-theme .nav-menu {
+    background: rgba(255, 255, 255, 0.98);
+  }
+
+  body.home-theme .nav-menu a:not(.btn) {
+    color: var(--htext);
+    border-bottom-color: var(--hborder);
+  }
+}
+
+/* ---- Buttons: solid fill, modest radius, no gradients — matches both
+   reference sites' plain, confident CTA style ---- */
+body.home-theme .btn-primary {
+  background: var(--orange);
+  color: #fff;
+  border-radius: var(--hradius-btn);
+  box-shadow: none;
+}
+
+body.home-theme .btn-primary:hover {
+  background: var(--orange-deep);
+  box-shadow: 0 8px 20px rgba(255, 92, 26, 0.25);
+}
+
+body.home-theme .btn-ghost {
+  border: 1px solid var(--hborder-strong);
+  background: #fff;
+  color: var(--htext);
+  border-radius: var(--hradius-btn);
+}
+
+body.home-theme .btn-ghost:hover {
+  border-color: var(--htext);
+  box-shadow: none;
+}
+
+body.home-theme .arrow-link {
+  color: var(--orange-deep);
+}
+
+body.home-theme .arrow-link:hover {
+  border-color: var(--orange-deep);
+}
+
+/* ---- Hero: big bold plain headline, soft color blobs, no serif accent —
+   both reference sites lean on weight and size, not mixed type ---- */
+.light-hero {
+  position: relative;
+  padding-top: calc(var(--header-h) + clamp(3.5rem, 8vw, 6rem));
+  padding-bottom: clamp(3rem, 6vw, 4.5rem);
+  overflow: hidden;
+  text-align: center;
+}
+
+.light-hero::before {
+  content: "";
+  position: absolute;
+  top: -18rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 62rem;
+  height: 42rem;
+  background:
+    radial-gradient(38% 46% at 32% 62%, rgba(255, 92, 26, 0.16), transparent 100%),
+    radial-gradient(30% 38% at 70% 40%, rgba(255, 139, 77, 0.14), transparent 100%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.light-hero .container {
+  position: relative;
+}
+
+.light-hero .hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff;
+  border: 1px solid var(--hborder-strong);
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--htext-dim);
+  box-shadow: var(--hshadow-sm);
+  margin-bottom: 1.75rem;
+}
+
+.light-hero .hero-tag .dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--orange);
+  flex: none;
+}
+
+.light-hero h1 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--htext);
+  max-width: 46rem;
+  margin-inline: auto;
+}
+
+.light-hero .lede {
+  color: var(--htext-dim);
+  font-size: clamp(1.1rem, 1.9vw, 1.3rem);
+  max-width: 34rem;
+  margin: 1.4rem auto 0;
+}
+
+.light-hero .hero-ctas {
+  justify-content: center;
+  margin-top: 2.25rem;
+}
+
+.light-hero .hero-note {
+  color: var(--htext-faint);
+}
+
+.light-hero .hero-note a {
+  color: var(--orange-deep);
+  font-weight: 600;
+}
+
+/* Product-style preview panel beneath the hero — a framed screenshot-like
+   plate, the way Deputy and Grammarly show product UI under the fold */
+.hero-showcase {
+  position: relative;
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  background: linear-gradient(155deg, #17130f, #060504);
+  border-radius: clamp(18px, 3vw, 28px);
+  overflow: hidden;
+  box-shadow: var(--hshadow-md);
+}
+
+.hero-showcase img {
+  width: 100%;
+  max-width: 26rem;
+  margin-inline: auto;
+  padding-top: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.hero-showcase .showcase-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1.1rem 0 0;
+}
+
+.hero-showcase .showcase-bar span {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ---- Trust bar — pill row echoing Deputy's capability strip / Grammarly's
+   "Trusted by..." line ---- */
+.trust-bar {
+  border-top: 1px solid var(--hborder);
+  border-bottom: 1px solid var(--hborder);
+  background: var(--hbg-soft);
+}
+
+.trust-bar .container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding-block: 1.5rem;
+}
+
+.trust-bar .trust-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--htext-faint);
+  margin-right: 0.5rem;
+}
+
+.trust-bar .pill {
+  display: inline-flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--hborder-strong);
+  border-radius: 999px;
+  padding: 0.45rem 1.05rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--htext);
+}
+
+/* ---- Light section head ---- */
+.light-theme-section .section-head {
+  text-align: center;
+  margin-inline: auto;
+}
+
+body.home-theme .eyebrow {
+  color: var(--htext-faint);
+}
+
+body.home-theme .eyebrow .idx {
+  border-color: var(--hborder-strong);
+  color: var(--orange-deep);
+}
+
+body.home-theme .section-head p {
+  color: var(--htext-dim);
+}
+
+body.home-theme h2 {
+  color: var(--htext);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ---- Feature cards: icon badge, heading, copy, "Learn more" link —
+   the Deputy "Tackle today's challenges" pattern ---- */
+.feature-grid-light {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-grid-light.cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.feature-card-light {
+  background: #fff;
+  border: 1px solid var(--hborder);
+  border-radius: var(--hradius-card);
+  padding: clamp(1.75rem, 3vw, 2.25rem);
+  box-shadow: var(--hshadow-sm);
+  transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease), border-color 0.3s;
+}
+
+.feature-card-light:hover {
+  box-shadow: var(--hshadow-md);
+  transform: translateY(-3px);
+  border-color: var(--hborder-strong);
+}
+
+.feature-card-light .icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 12px;
+  background: linear-gradient(155deg, var(--orange-bright), var(--orange));
+  color: #fff;
+  margin-bottom: 1.4rem;
+}
+
+.feature-card-light .icon-badge svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.feature-card-light h3 {
+  color: var(--htext);
+  font-size: 1.15rem;
+}
+
+.feature-card-light p {
+  color: var(--htext-dim);
+  font-size: 0.95rem;
+  margin-top: 0.65rem;
+  line-height: 1.65;
+}
+
+.feature-card-light .card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--orange-deep);
+}
+
+.feature-card-light .card-link::after {
+  content: "→";
+  transition: transform 0.25s var(--ease);
+}
+
+.feature-card-light:hover .card-link::after {
+  transform: translateX(3px);
+}
+
+@media (max-width: 900px) {
+  .feature-grid-light,
+  .feature-grid-light.cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .feature-grid-light,
+  .feature-grid-light.cols-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Stat band: bold oversized numeral statement, Grammarly's "17x ROI"
+   pattern, on a soft off-white field ---- */
+.stat-band {
+  background: var(--hbg-soft);
+  border-top: 1px solid var(--hborder);
+  border-bottom: 1px solid var(--hborder);
+  text-align: center;
+}
+
+.stat-band .stat-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3.5rem, 9vw, 6.5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--orange);
+}
+
+.stat-band p {
+  max-width: 34rem;
+  margin: 1.25rem auto 0;
+  color: var(--htext-dim);
+  font-size: 1.1rem;
+}
+
+.stat-band p strong {
+  color: var(--htext);
+}
+
+/* ---- Pricing preview cards — Grammarly's Free / Pro / Enterprise pattern,
+   adapted to Starter / Business / Platform ---- */
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.plan-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--hborder-strong);
+  border-radius: var(--hradius-card);
+  padding: clamp(1.75rem, 3vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--hshadow-sm);
+  transition: box-shadow 0.3s, transform 0.3s var(--ease);
+}
+
+.plan-card:hover {
+  box-shadow: var(--hshadow-md);
+  transform: translateY(-3px);
+}
+
+.plan-card.featured {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(255, 92, 26, 0.12), var(--hshadow-md);
+}
+
+.plan-card .plan-badge {
+  position: absolute;
+  top: -0.85rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--orange);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.plan-card .plan-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--htext-faint);
+}
+
+.plan-card .plan-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--htext);
+  margin-top: 0.4rem;
+}
+
+.plan-card .plan-price {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 4vw, 2.6rem);
+  color: var(--htext);
+  margin-top: 1.1rem;
+}
+
+.plan-card .plan-price small {
+  font-size: 0.45em;
+  font-weight: 500;
+  color: var(--htext-dim);
+}
+
+.plan-card .plan-desc {
+  color: var(--htext-dim);
+  font-size: 0.9rem;
+  margin-top: 0.6rem;
+}
+
+.plan-card ul {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--hborder);
+  flex: 1;
+}
+
+.plan-card ul li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.4rem 0;
+  font-size: 0.9rem;
+  color: var(--htext-dim);
+}
+
+.plan-card ul li::before {
+  content: "✓";
+  color: var(--orange);
+  font-weight: 700;
+  flex: none;
+}
+
+.plan-card .btn {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .plan-grid {
+    grid-template-columns: 1fr;
+    max-width: 26rem;
+    margin-inline: auto;
+  }
+}
+
+/* ---- Closing panel: solid brand-color band, matches Deputy's colored
+   section blocks rather than the dark site's radial-glow band ---- */
+.light-theme .cta-band,
+body.home-theme .cta-band {
+  background: linear-gradient(155deg, var(--orange-bright), var(--orange) 60%, var(--orange-deep));
+  border-top: 0;
+}
+
+body.home-theme .cta-band::before {
+  display: none;
+}
+
+body.home-theme .cta-band h2,
+body.home-theme .cta-band p {
+  color: #fff;
+}
+
+body.home-theme .cta-band p {
+  opacity: 0.92;
+}
+
+body.home-theme .cta-band .btn-primary {
+  background: #fff;
+  color: var(--orange-deep);
+}
+
+body.home-theme .cta-band .btn-primary:hover {
+  background: var(--hbg-soft);
+  box-shadow: none;
+}
+
+body.home-theme .cta-band .btn-ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #fff;
+}
+
+body.home-theme .cta-band .btn-ghost:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Reused dark-system components (split panels, info panels) get a card
+   shadow on white so they read as raised, not flat-on-flat. */
+body.home-theme .split .panel {
+  box-shadow: var(--hshadow-sm);
+  border-radius: var(--hradius-card);
+}
+
+body.home-theme .info-panel {
+  box-shadow: var(--hshadow-sm);
+}
+
+/* Footer stays on the dark system for contrast under a light page —
+   mirrors Deputy's own dark footer beneath a light site. */

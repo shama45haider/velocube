@@ -2992,44 +2992,111 @@ body.home-theme .footer-bottom::before {
   background: linear-gradient(90deg, transparent, rgba(255, 92, 26, 0.4), transparent);
 }
 
-/* ---- Term discounts: a quiet strip under the plan grid, not a new
-   pill or badge system, just three plain rows ---- */
-.term-discounts {
-  margin-top: clamp(2rem, 4vw, 3rem);
-  padding-top: clamp(1.5rem, 3vw, 2rem);
-  border-top: 1px solid var(--hborder);
+/* ---- Interactive billing-term selector: underline tabs above the plan
+   grid, consistent with the services filter. Picking a term live-updates
+   every price on the page carrying a data-base-price attribute. ---- */
+.term-selector {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem clamp(1.25rem, 3vw, 2.25rem);
+  border-bottom: 1px solid var(--hborder);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.term-tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.8rem 0.3rem 0.95rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(0.9rem, 1.6vw, 1.02rem);
+  color: var(--htext-faint);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.term-tab .tt-save {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--orange-deep);
+  opacity: 0.75;
+}
+
+.term-tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transition: transform 0.25s var(--ease);
+}
+
+.term-tab:hover {
+  color: var(--htext);
+}
+
+.term-tab[aria-selected="true"] {
+  color: var(--htext);
+}
+
+.term-tab[aria-selected="true"]::after {
+  transform: scaleX(1);
 }
 
 .td-label {
   color: var(--htext-dim);
   font-size: 0.925rem;
-  margin-bottom: 1rem;
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  text-align: center;
 }
 
-.td-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  max-width: 26rem;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid var(--hborder);
-  font-size: 0.95rem;
+/* Price update animation + savings line */
+.plan-price.price-tick {
+  animation: priceTick 0.35s var(--ease);
 }
 
-.td-row:last-child {
-  border-bottom: 0;
+@keyframes priceTick {
+  0% {
+    opacity: 0.2;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-.td-term {
-  color: var(--htext);
-  font-weight: 500;
+.plan-save {
+  min-height: 1.3rem;
+  font-size: 0.85rem;
+  color: var(--htext-dim);
+  margin-top: 0.35rem;
 }
 
-.td-save {
-  font-family: var(--font-display);
-  font-weight: 600;
+.plan-save .was {
+  text-decoration: line-through;
+  color: var(--htext-faint);
+  margin-right: 0.45rem;
+}
+
+.plan-save .save-amt {
   color: var(--orange-deep);
+  font-weight: 600;
+}
+
+.rate.price-tick {
+  animation: priceTick 0.35s var(--ease);
 }
 
 /* ---- Monthly / add-on rate rows, light ---- */

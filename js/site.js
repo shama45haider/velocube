@@ -102,6 +102,52 @@
     });
   }
 
+  /* ---- Billing term selector (hosting page) ----
+     Picking a term updates every element with data-base-price:
+     plan cards get a struck original price and a savings line,
+     rate rows just show the discounted monthly figure. */
+  var termTabs = document.querySelectorAll(".term-tab");
+  var priceEls = document.querySelectorAll("[data-base-price]");
+
+  if (termTabs.length && priceEls.length) {
+    var applyTerm = function (months, discountPct) {
+      priceEls.forEach(function (el) {
+        var base = parseFloat(el.getAttribute("data-base-price"));
+        var discounted = Math.round(base * (1 - discountPct / 100));
+        el.innerHTML = "$" + discounted.toLocaleString() + "<small>/mo</small>";
+        el.classList.remove("price-tick");
+        void el.offsetWidth; // restart the animation
+        el.classList.add("price-tick");
+
+        // Plan cards carry a sibling .plan-save line for the detail text.
+        var save = el.parentElement.querySelector(".plan-save");
+        if (save) {
+          if (discountPct > 0) {
+            var totalSaved = Math.round(base * months * (discountPct / 100));
+            save.innerHTML =
+              '<span class="was">$' + base.toLocaleString() + "/mo</span>" +
+              '<span class="save-amt">Save $' + totalSaved.toLocaleString() +
+              " over " + months + " months</span>";
+          } else {
+            save.innerHTML = "";
+          }
+        }
+      });
+    };
+
+    termTabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        termTabs.forEach(function (t) {
+          t.setAttribute("aria-selected", String(t === tab));
+        });
+        applyTerm(
+          parseInt(tab.getAttribute("data-term"), 10),
+          parseFloat(tab.getAttribute("data-discount"))
+        );
+      });
+    });
+  }
+
   /* ---- Footer year ---- */
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();

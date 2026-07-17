@@ -119,11 +119,19 @@
           <p>Every plan includes hosting, SSL, daily backups, and uptime monitoring. The difference is who makes the changes.</p>
         </div>
 
+        <div class="term-selector" role="tablist" aria-label="Billing term" data-reveal>
+          <button class="term-tab" type="button" role="tab" data-term="1" data-discount="0" aria-selected="true">Monthly</button>
+          <button class="term-tab" type="button" role="tab" data-term="3" data-discount="5" aria-selected="false">3 Months<span class="tt-save">Save 5%</span></button>
+          <button class="term-tab" type="button" role="tab" data-term="6" data-discount="10" aria-selected="false">6 Months<span class="tt-save">Save 10%</span></button>
+          <button class="term-tab" type="button" role="tab" data-term="12" data-discount="15" aria-selected="false">12 Months<span class="tt-save">Save 15%</span></button>
+        </div>
+
         <div class="plan-grid" data-reveal-group>
           <article class="plan-card" data-reveal>
             <p class="plan-eyebrow">You stay in control</p>
             <p class="plan-name">Self-Managed Hosting</p>
-            <p class="plan-price">$25<small>/mo</small></p>
+            <p class="plan-price" data-base-price="25">$25<small>/mo</small></p>
+            <p class="plan-save" aria-live="polite"></p>
             <p class="plan-desc">We keep it online and secure. You make the changes yourself from your client panel.</p>
             <ul>
               <li>1 GB storage included</li>
@@ -139,7 +147,8 @@
             <span class="plan-badge">Most Popular</span>
             <p class="plan-eyebrow">We make the changes</p>
             <p class="plan-name">Managed Hosting</p>
-            <p class="plan-price">$150<small>/mo</small></p>
+            <p class="plan-price" data-base-price="150">$150<small>/mo</small></p>
+            <p class="plan-save" aria-live="polite"></p>
             <p class="plan-desc">Email us any change and we make it for you. No panel to learn and nothing to maintain.</p>
             <ul>
               <li>5 GB storage included</li>
@@ -154,7 +163,8 @@
           <article class="plan-card" data-reveal>
             <p class="plan-eyebrow">The full care plan</p>
             <p class="plan-name">Website Management</p>
-            <p class="plan-price">$200<small>/mo</small></p>
+            <p class="plan-price" data-base-price="200">$200<small>/mo</small></p>
+            <p class="plan-save" aria-live="polite"></p>
             <p class="plan-desc">Hosting plus everything else. Updates, security, reporting, and priority support handled for you.</p>
             <ul>
               <li>10 GB storage included</li>
@@ -167,21 +177,7 @@
           </article>
         </div>
 
-        <div class="term-discounts" data-reveal>
-          <p class="td-label">Save more on a longer term. Applies to any plan or monthly service on this page.</p>
-          <div class="td-row">
-            <span class="td-term">3 Month Term</span>
-            <span class="td-save">Save 5%</span>
-          </div>
-          <div class="td-row">
-            <span class="td-term">6 Month Term</span>
-            <span class="td-save">Save 10%</span>
-          </div>
-          <div class="td-row">
-            <span class="td-term">12 Month Term</span>
-            <span class="td-save">Save 15%</span>
-          </div>
-        </div>
+        <p class="td-label" data-reveal>Longer terms apply to every plan and monthly service on this page. Prices update as you pick a term.</p>
       </div>
     </section>
 
@@ -296,13 +292,13 @@
             <h3>Monthly SEO Management</h3>
             <span class="note">Ongoing rankings work with monthly reports</span>
             <span class="leader"></span>
-            <span class="rate">$999<small>/mo</small></span>
+            <span class="rate" data-base-price="999">$999<small>/mo</small></span>
           </div>
           <div class="rate-row">
             <h3>Google Business Profile</h3>
             <span class="note">Your presence on Google Maps and Search</span>
             <span class="leader"></span>
-            <span class="rate">$599<small>/mo</small></span>
+            <span class="rate" data-base-price="599">$599<small>/mo</small></span>
           </div>
         </div>
       </div>

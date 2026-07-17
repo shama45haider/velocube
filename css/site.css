@@ -1593,22 +1593,6 @@ a.bracket-card:hover {
   color: var(--orange-bright);
 }
 
-.footer-word {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(4rem, 15.5vw, 12.5rem);
-  line-height: 0.82;
-  letter-spacing: -0.03em;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(244, 241, 236, 0.08);
-  white-space: nowrap;
-  user-select: none;
-  pointer-events: none;
-  text-align: center;
-  margin-top: clamp(1rem, 3vw, 2rem);
-  margin-bottom: -0.1em;
-}
-
 .footer-bottom {
   border-top: 1px solid var(--border);
   padding-block: 1.4rem;
@@ -2995,10 +2979,6 @@ body.home-theme .role {
   flex: none;
 }
 
-body.home-theme .footer-word {
-  -webkit-text-stroke: 1px rgba(255, 92, 26, 0.22);
-}
-
 body.home-theme .footer-bottom {
   position: relative;
   border-top-color: transparent;
@@ -3010,6 +2990,46 @@ body.home-theme .footer-bottom::before {
   inset: 0 0 auto 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255, 92, 26, 0.4), transparent);
+}
+
+/* ---- Term discounts: a quiet strip under the plan grid, not a new
+   pill or badge system, just three plain rows ---- */
+.term-discounts {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding-top: clamp(1.5rem, 3vw, 2rem);
+  border-top: 1px solid var(--hborder);
+}
+
+.td-label {
+  color: var(--htext-dim);
+  font-size: 0.925rem;
+  margin-bottom: 1rem;
+}
+
+.td-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 26rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--hborder);
+  font-size: 0.95rem;
+}
+
+.td-row:last-child {
+  border-bottom: 0;
+}
+
+.td-term {
+  color: var(--htext);
+  font-weight: 500;
+}
+
+.td-save {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--orange-deep);
 }
 
 /* ---- Monthly / add-on rate rows, light ---- */

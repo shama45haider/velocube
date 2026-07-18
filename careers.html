@@ -54,6 +54,7 @@
   </header>
 
   <main id="main">
+    <!-- ================= Hero ================= -->
     <section class="hero-editorial">
       <div class="container">
         <div class="hero-copy">
@@ -61,6 +62,7 @@
           <p class="lede">Velocube is a small team growing fast. Three roles are open right now, and every one of them comes with real ownership from day one.</p>
           <div class="hero-ctas">
             <a class="btn btn-primary" href="mailto:hr@velocube.net">Apply by Email</a>
+            <a class="btn btn-ghost" href="#roles">See Open Roles</a>
           </div>
         </div>
 
@@ -72,12 +74,70 @@
       </div>
     </section>
 
-    <section class="section">
+    <!-- ================= Quick stats ================= -->
+    <section class="stat-band" style="padding-block: clamp(2.25rem, 4vw, 3rem);">
       <div class="container">
+        <div class="feature-grid-light" style="max-width: 52rem; margin-inline: auto;" data-reveal-group>
+          <div data-reveal>
+            <p class="stat-num" style="font-size: clamp(2rem, 4vw, 2.75rem);">3</p>
+            <p>Open roles hiring right now</p>
+          </div>
+          <div data-reveal style="--reveal-delay: 0.08s;">
+            <p class="stat-num" style="font-size: clamp(2rem, 4vw, 2.75rem);">100%</p>
+            <p>Remote, work from anywhere</p>
+          </div>
+          <div data-reveal style="--reveal-delay: 0.16s;">
+            <p class="stat-num" style="font-size: clamp(2rem, 4vw, 2.75rem);">24h</p>
+            <p>Average reply time on applications</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Why Velocube ================= -->
+    <section class="section" style="padding-bottom: clamp(2.5rem, 5vw, 3.5rem);">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow" style="justify-content: center;">Why Velocube</p>
+          <h2>Small team, real ownership</h2>
+          <p>No layers of management to work through. You'll talk directly with the people building the company, and your work will actually move the needle.</p>
+        </div>
+
+        <div class="feature-grid-light cols-3" data-reveal-group>
+          <div class="feature-card-light" data-reveal>
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/></svg></span>
+            <h3>Flexible by default</h3>
+            <p>Remote work and flexible hours across every role. We care about what you get done, not when you clock in.</p>
+          </div>
+          <div class="feature-card-light" data-reveal style="--reveal-delay: 0.08s;">
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-6 3 4 5-8"/></svg></span>
+            <h3>Pay tied to results</h3>
+            <p>Competitive pay and commission structures that grow with what you bring in, not a flat rate that never moves.</p>
+          </div>
+          <div class="feature-card-light" data-reveal style="--reveal-delay: 0.16s;">
+            <span class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+            <h3>Direct mentorship</h3>
+            <p>You learn straight from the people running the business, with a real say in strategy from your first week.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Open roles ================= -->
+    <section id="roles" class="section" style="padding-top: clamp(2.5rem, 5vw, 3.5rem);">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow" style="justify-content: center;">Open Roles</p>
+          <h2>Three roles, open now</h2>
+        </div>
+
         <!-- ============ Marketing ============ -->
         <article class="role" data-reveal>
           <div class="role-head">
-            <h2>Marketing Team</h2>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <span class="icon-badge" style="margin-bottom: 0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.2-3"/></svg></span>
+              <h2>Marketing Team</h2>
+            </div>
             <span class="role-type">Marketing</span>
           </div>
           <p class="text-dim" style="margin-bottom: 1.5rem;">You promote Velocube and help bring in new clients. You plan campaigns, create content, and track what works.</p>
@@ -102,12 +162,18 @@
             </div>
           </div>
           <p class="role-growth"><strong>Growth:</strong> Strong performers take ownership of full campaigns and can grow into a senior marketing role as the company expands.</p>
+          <div class="hero-ctas" style="margin-top: 1.5rem;">
+            <a class="btn btn-primary" href="mailto:hr@velocube.net?subject=Application: Marketing Team">Apply for this role</a>
+          </div>
         </article>
 
         <!-- ============ Customer Support ============ -->
         <article class="role" data-reveal>
           <div class="role-head">
-            <h2>Customer Support</h2>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <span class="icon-badge" style="margin-bottom: 0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 0 1 18 0v6a3 3 0 0 1-3 3h-1v-8h4"/><path d="M3 17v-6h4v8H4a1 1 0 0 1-1-1z"/></svg></span>
+              <h2>Customer Support</h2>
+            </div>
             <span class="role-type">Support</span>
           </div>
           <p class="text-dim" style="margin-bottom: 1.5rem;">You're the first person clients talk to. You answer questions, track requests, and make sure nothing falls through the cracks.</p>
@@ -132,12 +198,18 @@
             </div>
           </div>
           <p class="role-growth"><strong>Growth:</strong> Support team members learn every part of the business and can move into project coordination or account management.</p>
+          <div class="hero-ctas" style="margin-top: 1.5rem;">
+            <a class="btn btn-primary" href="mailto:hr@velocube.net?subject=Application: Customer Support">Apply for this role</a>
+          </div>
         </article>
 
         <!-- ============ Brand Ambassadors ============ -->
         <article class="role" data-reveal>
           <div class="role-head">
-            <h2>Brand Ambassadors</h2>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <span class="icon-badge" style="margin-bottom: 0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></span>
+              <h2>Brand Ambassadors</h2>
+            </div>
             <span class="role-type">Outreach</span>
           </div>
           <p class="text-dim" style="margin-bottom: 1.5rem;">You represent Velocube in your network and community. You connect local businesses that need websites with our team.</p>
@@ -162,12 +234,68 @@
             </div>
           </div>
           <p class="role-growth"><strong>Growth:</strong> Commission-based, with higher rates as you bring in more clients. Top ambassadors can move into full marketing roles.</p>
+          <div class="hero-ctas" style="margin-top: 1.5rem;">
+            <a class="btn btn-primary" href="mailto:hr@velocube.net?subject=Application: Brand Ambassadors">Apply for this role</a>
+          </div>
         </article>
+      </div>
+    </section>
 
-        <!-- ============ How to apply ============ -->
+    <!-- ================= Hiring process FAQ ================= -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="section-head" style="text-align: center; margin-inline: auto;" data-reveal>
+          <p class="eyebrow" style="justify-content: center;">Hiring Process</p>
+          <h2>How it works</h2>
+        </div>
+
+        <div class="faq-list" data-reveal>
+          <details class="faq-item" open>
+            <summary>How do I apply?</summary>
+            <div class="faq-body">
+              <p>Email <a href="mailto:hr@velocube.net">hr@velocube.net</a> with the role name in the subject line. Include a short introduction, your experience, and a resume if you have one.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>How long does hiring take?</summary>
+            <div class="faq-body">
+              <p>We reply to every application, usually within a day. If it looks like a fit, we'll set up a short call before making a decision.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Is this remote?</summary>
+            <div class="faq-body">
+              <p>Yes. Every open role is fully remote with flexible hours, so you can work from wherever fits your life.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Do I need prior experience?</summary>
+            <div class="faq-body">
+              <p>It depends on the role. Marketing and Support benefit from relevant experience, but Brand Ambassadors need no technical or industry background, we train you.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= How to apply ================= -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
         <div class="info-panel" data-reveal>
           <h2>How to apply</h2>
           <p>Email <a href="mailto:hr@velocube.net">hr@velocube.net</a> with the role name in the subject line. Include a short introduction, your experience, and a resume if you have one. We reply to every application.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA ================= -->
+    <section class="cta-band">
+      <div class="container" data-reveal>
+        <h2>Ready to join us?</h2>
+        <p>Send us a short intro and your experience, we reply to every application within a day.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="mailto:hr@velocube.net">Apply by Email</a>
+          <a class="btn btn-ghost" href="tel:+17186350662">Call (718) 635-0662</a>
         </div>
       </div>
     </section>

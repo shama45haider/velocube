@@ -306,6 +306,34 @@ window.VELO_DEMO = {
     { id: 18, ticket_id: "TK-2410", author: "Demo Agent", direction: "outbound", body: "Hi Jordan. Three things to kick off: your membership tiers and pricing, what content is members-only, and whether existing clients get grandfathered pricing. Reply here and dev starts this week.", sent_at: "2026-07-12T09:00:00" }
   ],
 
+  agents: [
+    { id: 1, name: "Demo Agent", email: "demo@velocube.net", role: "Support Agent", active: true },
+    { id: 2, name: "Sana Malik", email: "sana@velocube.net", role: "Support Lead", active: true },
+    { id: 3, name: "Chris Okafor", email: "chris@velocube.net", role: "Support Agent", active: true }
+  ],
+
+  snippets: [
+    { id: 1, category: "General", title: "Acknowledge + investigating", body: "Hi {name},\n\nThanks for reaching out — we've received your request and are looking into it now. I'll follow up shortly with an update.\n\nBest,\n{agent}\nVelocube Support" },
+    { id: 2, category: "Managed Hosting", title: "Change request received", body: "Hi {name},\n\nGot it — your change request is logged and in the queue. Text and image updates are usually live the same business day; new sections take 2–3 days. I'll confirm here with a link once it's done.\n\nBest,\n{agent}\nVelocube Support" },
+    { id: 3, category: "Billing", title: "Payment failed — friendly nudge", body: "Hi {name},\n\nA quick heads up: your latest renewal payment didn't go through. No rush and nothing is suspended — most of the time it's just an expired card. Reply here or call us when you'd like us to run it again.\n\nBest,\n{agent}\nVelocube Support" },
+    { id: 4, category: "Sales", title: "Quote follow-up", body: "Hi {name},\n\nThanks for your interest in Velocube! To give you an exact quote I have a couple of quick questions:\n\n1. \n2. \n\nOnce I hear back, you'll have a firm number within 24 hours.\n\nBest,\n{agent}\nVelocube Support" },
+    { id: 5, category: "General", title: "Resolved + closing", body: "Hi {name},\n\nThis is done — everything should be working on your end now. I'm marking the ticket resolved, but just reply here if anything else comes up and it will reopen automatically.\n\nBest,\n{agent}\nVelocube Support" },
+    { id: 6, category: "Hosting", title: "Storage options", body: "Hi {name},\n\nYou're getting close to your storage limit. Two options:\n\n• Extra storage at $5 per GB per month, added to your current plan\n• We move large video files to a video host and embed them, which usually frees most of your space\n\nHappy to walk through either — just let me know.\n\nBest,\n{agent}\nVelocube Support" }
+  ],
+
+  activity: [
+    { id: 1, ts: "2026-07-16T14:40:00", agent: "System", kind: "reply_received", ref: "TK-2401", detail: "Dr. Priya Nair replied" },
+    { id: 2, ts: "2026-07-16T10:02:00", agent: "Demo Agent", kind: "reply_sent", ref: "TK-2401", detail: "Replied to Hudson Dental Studio" },
+    { id: 3, ts: "2026-07-16T09:12:00", agent: "System", kind: "ticket_created", ref: "TK-2401", detail: "Booking form not sending confirmation emails" },
+    { id: 4, ts: "2026-07-16T08:05:00", agent: "System", kind: "ticket_created", ref: "TK-2408", detail: "Logo refresh timeline question" },
+    { id: 5, ts: "2026-07-15T09:20:00", agent: "System", kind: "reply_received", ref: "TK-2403", detail: "Sam Alvarez replied" },
+    { id: 6, ts: "2026-07-14T16:10:00", agent: "Demo Agent", kind: "reply_sent", ref: "TK-2404", detail: "Storage options sent to Ironclad Fitness" },
+    { id: 7, ts: "2026-07-14T15:45:00", agent: "Demo Agent", kind: "status_changed", ref: "TK-2403", detail: "Status set to pending" },
+    { id: 8, ts: "2026-07-13T08:20:00", agent: "System", kind: "ticket_created", ref: "TK-2405", detail: "Quote request from Atlas Moving Group" },
+    { id: 9, ts: "2026-07-10T17:35:00", agent: "Demo Agent", kind: "status_changed", ref: "TK-2406", detail: "Resolved: product photo help" },
+    { id: 10, ts: "2026-07-09T12:00:00", agent: "Demo Agent", kind: "status_changed", ref: "TK-2407", detail: "Resolved: billing term switch" }
+  ],
+
   guides: [
     {
       id: 1,

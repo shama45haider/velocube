@@ -151,6 +151,19 @@
     if (window.console) console.error(e);
   }
 
+  function renderViewError(e) {
+    var msg = (e && (e.message || e.error_description || e.details)) || "Unknown error";
+    if (window.console) console.error(e);
+    viewEl.innerHTML =
+      '<div class="card"><div class="empty-state"><span class="es-icon">' +
+      icoAlert() +
+      "</span><h3>This page could not load</h3><p>" +
+      esc(msg) +
+      '</p><button class="btn primary" id="ve-retry" type="button">Try Again</button></div></div>';
+    var retry = document.getElementById("ve-retry");
+    if (retry) retry.addEventListener("click", route);
+  }
+
   function toast(msg, kind) {
     var t = document.createElement("div");
     t.className = "toast" + (kind ? " " + kind : "");
@@ -683,7 +696,7 @@
         });
       var ckEmail = document.getElementById("ck-email");
       if (ckEmail) ckEmail.addEventListener("click", function () { location.hash = "#/settings"; });
-    });
+    }).catch(renderViewError);
   }
 
   function feedDot(kind) {
@@ -782,7 +795,7 @@
         toast("Exported " + current.length + " accounts");
       });
       render();
-    });
+    }).catch(renderViewError);
   }
 
   function clientModal(existing) {
@@ -1149,7 +1162,7 @@
           })
           .catch(apiFail);
       });
-    });
+    }).catch(renderViewError);
   }
 
   /* ======================= Tickets ======================= */
@@ -1317,7 +1330,7 @@
       });
 
       render();
-    });
+    }).catch(renderViewError);
   }
 
   function viewTicket(id) {
@@ -1591,8 +1604,8 @@
             }
           );
         });
-      });
-    });
+      }).catch(renderViewError);
+    }).catch(renderViewError);
   }
 
   /* ======================= Reports ======================= */
@@ -1745,7 +1758,7 @@
           .join("") +
         "</ul></div>" +
         "</div>";
-    });
+    }).catch(renderViewError);
   }
 
   /* ======================= Activity ======================= */
@@ -1816,7 +1829,7 @@
       document.getElementById("act-kind").addEventListener("change", render);
       document.getElementById("act-agent").addEventListener("change", render);
       render();
-    });
+    }).catch(renderViewError);
   }
 
   /* ======================= Snippets ======================= */
@@ -1906,7 +1919,7 @@
       });
       document.getElementById("sn-search").addEventListener("input", render);
       render();
-    });
+    }).catch(renderViewError);
   }
 
   function snippetModal(existing) {
@@ -2033,7 +2046,7 @@
           }).catch(apiFail);
         });
       });
-    });
+    }).catch(renderViewError);
   }
 
   function agentModal(existing) {
@@ -2355,7 +2368,7 @@
       });
       document.getElementById("guide-search").addEventListener("input", render);
       render();
-    });
+    }).catch(renderViewError);
   }
 
   function guideModal(existing) {

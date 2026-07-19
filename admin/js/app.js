@@ -145,6 +145,12 @@
       .join("");
   }
 
+  function apiFail(e) {
+    var msg = (e && (e.message || e.error_description || e.details)) || "Unknown error";
+    toast("Could not save: " + msg, "warn");
+    if (window.console) console.error(e);
+  }
+
   function toast(msg, kind) {
     var t = document.createElement("div");
     t.className = "toast" + (kind ? " " + kind : "");
@@ -837,14 +843,14 @@
               closeModal();
               location.hash = "#/account/" + created.id;
               route();
-            });
+            }).catch(apiFail);
           } else {
             api.updateClient(c.id, data).then(function () {
               log("client_updated", c.account_number, "Updated " + data.business);
               toast("Client updated");
               closeModal();
               route();
-            });
+            }).catch(apiFail);
           }
         });
       }
@@ -918,7 +924,7 @@
             toast(isNew ? "Service added" : "Service updated");
             closeModal();
             if (onDone) onDone();
-          });
+          }).catch(apiFail);
         });
       }
     );
@@ -1105,7 +1111,7 @@
               toast("Client deleted");
               closeModal();
               location.hash = "#/accounts";
-            });
+            }).catch(apiFail);
           }
         );
       });
@@ -1131,7 +1137,7 @@
             log("service_deleted", c.account_number, "Removed service: " + svc.name);
             toast("Service deleted");
             viewAccount(id);
-          });
+          }).catch(apiFail);
         });
       });
       document.getElementById("save-notes").addEventListener("click", function () {
@@ -1140,7 +1146,8 @@
           .then(function () {
             log("client_updated", c.account_number, "Internal notes updated");
             toast("Notes saved");
-          });
+          })
+          .catch(apiFail);
       });
     });
   }
@@ -1202,7 +1209,8 @@
               closeModal();
               refreshNavCount();
               location.hash = "#/ticket/" + t.id;
-            });
+            })
+            .catch(apiFail);
         });
       }
     );
@@ -1542,7 +1550,7 @@
             toast(msg || "Ticket updated");
             refreshNavCount();
             viewTicket(id);
-          });
+          }).catch(apiFail);
         }
 
         document.getElementById("tk-save").addEventListener("click", function () {
@@ -1579,7 +1587,7 @@
                 closeModal();
                 refreshNavCount();
                 location.hash = "#/tickets";
-              });
+              }).catch(apiFail);
             }
           );
         });
@@ -1888,7 +1896,7 @@
             api.deleteSnippet(s.id).then(function () {
               toast("Deleted");
               viewSnippets();
-            });
+            }).catch(apiFail);
           });
         });
       }
@@ -1935,7 +1943,7 @@
             toast(isNew ? "Canned reply created" : "Saved");
             closeModal();
             viewSnippets();
-          });
+          }).catch(apiFail);
         });
       }
     );
@@ -2022,7 +2030,7 @@
             log("agent_updated", "", (makeActive ? "Reactivated " : "Deactivated ") + a.name);
             toast(a.name + (makeActive ? " reactivated" : " deactivated"));
             viewTeam();
-          });
+          }).catch(apiFail);
         });
       });
     });
@@ -2337,7 +2345,7 @@
               log("guide_deleted", "", "Deleted guide: " + g.title);
               toast("Guide deleted");
               viewGuides();
-            });
+            }).catch(apiFail);
           });
         });
       }

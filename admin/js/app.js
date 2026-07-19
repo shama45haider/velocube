@@ -419,12 +419,14 @@
       api.getTickets(),
       api.getClients(),
       api.getAllServices(),
-      api.getActivity(8)
+      api.getActivity(8),
+      api.getAgents()
     ]).then(function (res) {
       var tickets = res[0];
       var clients = res[1];
       var services = res[2];
       var activity = res[3];
+      var agents = res[4].filter(function (a) { return a.active !== false; });
 
       var open = tickets.filter(function (t) { return t.status === "open"; });
       var urgent = tickets.filter(function (t) {
@@ -487,6 +489,34 @@
         })
         .slice(0, 6);
 
+      var emailOk = localStorage.getItem("velo_email_ok") === "1";
+      var ckDismissed = localStorage.getItem("velo_checklist_done") === "1";
+      var ckItems = [
+        { done: clients.length > 0, label: "Add your first client", sub: "Accounts hold plans, services, and tickets.", btn: "Add Client", act: "ck-client" },
+        { done: agents.length > 0, label: "Build your team roster", sub: "Agents appear in assignee menus and on the Team page.", btn: "Open Team", act: "ck-team" },
+        { done: tickets.length > 0, label: "Create your first ticket", sub: "Every client request lives in a ticket thread.", btn: "New Ticket", act: "ck-ticket" },
+        { done: emailOk, label: "Connect outbound email", sub: "Run the email test in Settings so replies reach client inboxes.", btn: "Open Settings", act: "ck-email" }
+      ];
+      var showChecklist =
+        !ckDismissed &&
+        ckItems.some(function (i) { return !i.done; });
+
+      var checklistHtml = !showChecklist
+        ? ""
+        : '<div class="card checklist-card"><div class="card-head"><h2>Get your workspace ready</h2>' +
+          '<button class="btn ghost sm" id="ck-dismiss" type="button">Dismiss</button></div><ul class="checklist">' +
+          ckItems
+            .map(function (i) {
+              return (
+                '<li class="' + (i.done ? "done" : "") + '"><span class="ck-mark">&#10003;</span>' +
+                '<span class="ck-text">' + esc(i.label) + "<small>" + esc(i.sub) + "</small></span>" +
+                (i.done ? "" : '<button class="btn ghost sm" type="button" id="' + i.act + '">' + esc(i.btn) + "</button>") +
+                "</li>"
+              );
+            })
+            .join("") +
+          "</ul></div>";
+
       viewEl.innerHTML =
         '<div class="view-head"><div><h1>Welcome back, ' +
         esc(firstName(agent.name)) +
@@ -499,6 +529,8 @@
         '<button class="btn ghost" id="qa-new-client">New Client</button>' +
         '<button class="btn primary" id="qa-new-ticket">New Ticket</button>' +
         "</div></div>" +
+
+        checklistHtml +
 
         '<div class="stat-grid">' +
         statTile("Open Tickets", open.length, "blue", icoTicket(), "#/tickets/open") +
@@ -611,11 +643,40 @@
 
       bindRowLinks();
       document.getElementById("qa-new-ticket").addEventListener("click", function () {
+        if (!clients.length) {
+          toast("Add a client first — tickets belong to a client account", "warn");
+          clientModal(null);
+          return;
+        }
         newTicketModal(clients);
       });
       document.getElementById("qa-new-client").addEventListener("click", function () {
         clientModal(null);
       });
+
+      var ckDismiss = document.getElementById("ck-dismiss");
+      if (ckDismiss) {
+        ckDismiss.addEventListener("click", function () {
+          localStorage.setItem("velo_checklist_done", "1");
+          viewDashboard();
+        });
+      }
+      var ckClient = document.getElementById("ck-client");
+      if (ckClient) ckClient.addEventListener("click", function () { clientModal(null); });
+      var ckTeam = document.getElementById("ck-team");
+      if (ckTeam) ckTeam.addEventListener("click", function () { location.hash = "#/team"; });
+      var ckTicket = document.getElementById("ck-ticket");
+      if (ckTicket)
+        ckTicket.addEventListener("click", function () {
+          if (!clients.length) {
+            toast("Add a client first — tickets belong to a client account", "warn");
+            clientModal(null);
+            return;
+          }
+          newTicketModal(clients);
+        });
+      var ckEmail = document.getElementById("ck-email");
+      if (ckEmail) ckEmail.addEventListener("click", function () { location.hash = "#/settings"; });
     });
   }
 
@@ -794,6 +855,99 @@
     return "VC-" + String(10000 + Math.floor(Math.random() * 90000));
   }
 
+  function serviceModal(clientId, existing, onDone) {
+    var isNew = !existing;
+    var s = existing || {};
+    openModal(
+      isNew ? "Add service" : "Edit " + s.name,
+      '<div class="form-grid">' +
+        field("sv-name", "Service name", s.name) +
+        '<label>Type<select id="sv-type" class="input select">' +
+        ["project", "subscription"]
+          .map(function (t) {
+            return "<option" + (s.type === t ? " selected" : "") + ">" + t + "</option>";
+          })
+          .join("") +
+        "</select></label>" +
+        field("sv-price", "Price ($" + ")", s.price != null ? s.price : "", "number") +
+        '<label>Status<select id="sv-status" class="input select">' +
+        ["scheduled", "in_progress", "active", "paused", "completed"]
+          .map(function (st) {
+            return "<option" + (s.status === st ? " selected" : "") + ">" + st + "</option>";
+          })
+          .join("") +
+        "</select></label>" +
+        field("sv-progress", "Progress % (projects)", s.progress != null ? s.progress : "", "number") +
+        field("sv-started", "Started", s.started || "", "date") +
+        field("sv-delivered", "Delivered", s.delivered || "", "date") +
+        "</div>" +
+        '<div class="btn-row"><button class="btn primary" id="sv-save">' +
+        (isNew ? "Add Service" : "Save Changes") +
+        '</button><button class="btn ghost" id="sv-cancel">Cancel</button></div>',
+      function (wrap) {
+        wrap.querySelector("#sv-cancel").addEventListener("click", closeModal);
+        wrap.querySelector("#sv-save").addEventListener("click", function () {
+          var name = val("sv-name");
+          if (!name) {
+            toast("Give the service a name", "warn");
+            return;
+          }
+          var progress = val("sv-progress");
+          var data = {
+            name: name,
+            type: val("sv-type"),
+            price: Number(val("sv-price")) || 0,
+            status: val("sv-status"),
+            progress: progress === "" ? null : Math.max(0, Math.min(100, Number(progress))),
+            started: val("sv-started") || null,
+            delivered: val("sv-delivered") || null
+          };
+          var p;
+          if (isNew) {
+            data.client_id = isNaN(Number(clientId)) ? clientId : Number(clientId);
+            p = api.createService(data);
+          } else {
+            p = api.updateService(s.id, data);
+          }
+          p.then(function () {
+            log(
+              isNew ? "service_added" : "service_updated",
+              "",
+              (isNew ? "Added service: " : "Updated service: ") + name
+            );
+            toast(isNew ? "Service added" : "Service updated");
+            closeModal();
+            if (onDone) onDone();
+          });
+        });
+      }
+    );
+  }
+
+  function confirmDeleteModal(title, message, confirmText, onConfirm) {
+    openModal(
+      title,
+      '<div class="confirm-danger">' + esc(message) + "</div>" +
+        '<label style="display:block;font-size:0.8rem;font-weight:600;color:var(--ink-2);margin-bottom:0.35rem;">Type "' +
+        esc(confirmText) + '" to confirm</label>' +
+        '<input id="cd-input" class="input" type="text" autocomplete="off">' +
+        '<div class="btn-row"><button class="btn primary" id="cd-go" disabled style="background:var(--red);">Delete Permanently</button>' +
+        '<button class="btn ghost" id="cd-cancel">Cancel</button></div>',
+      function (wrap) {
+        var input = wrap.querySelector("#cd-input");
+        var go = wrap.querySelector("#cd-go");
+        input.addEventListener("input", function () {
+          go.disabled =
+            input.value.trim().toLowerCase() !== confirmText.trim().toLowerCase();
+        });
+        wrap.querySelector("#cd-cancel").addEventListener("click", closeModal);
+        go.addEventListener("click", function () {
+          if (!go.disabled) onConfirm();
+        });
+      }
+    );
+  }
+
   function field(id, label, value, type) {
     return (
       "<label>" + esc(label) + '<input id="' + id + '" class="input" type="' +
@@ -841,6 +995,7 @@
         '</h1><p class="view-sub mono">' + esc(c.account_number) +
         " · Client since " + fmtDate(c.client_since) +
         "</p></div><div class='btn-row'>" +
+        '<button class="btn ghost danger" id="acct-delete">Delete</button>' +
         '<button class="btn ghost" id="acct-edit">Edit Client</button>' +
         '<button class="btn primary" id="acct-ticket">New Ticket</button>' +
         "</div></div>" +
@@ -877,41 +1032,35 @@
         "</div>" +
         "</div>" +
 
-        '<div class="card"><div class="card-head"><h2>Services in progress</h2></div>' +
-        (inProgress.length
-          ? '<table class="data-table"><thead><tr><th>Service</th><th>Type</th><th>Price</th><th>Status</th><th>Progress</th><th>Started</th></tr></thead><tbody>' +
-            inProgress
+        '<div class="card"><div class="card-head"><h2>Services</h2>' +
+        '<button class="btn ghost sm" id="svc-add" type="button">Add Service</button></div>' +
+        (services.length
+          ? '<table class="data-table"><thead><tr><th>Service</th><th>Type</th><th>Price</th><th>Status</th><th>Progress</th><th>Dates</th><th></th></tr></thead><tbody>' +
+            services
               .map(function (s) {
                 return (
-                  "<tr><td><strong>" + esc(s.name) + "</strong></td><td>" +
-                  esc(s.type) + "</td><td>" + money(s.price) + "</td><td>" +
+                  '<tr data-svc="' + s.id + '"><td><strong>' + esc(s.name) + "</strong></td><td>" +
+                  esc(s.type) + "</td><td>" + money(s.price) +
+                  (s.type === "subscription" ? "/mo" : "") + "</td><td>" +
                   statusBadge(s.status) + "</td><td>" +
-                  (s.progress != null
+                  (s.progress != null && s.status !== "completed"
                     ? '<div class="progress slim"><span style="width:' + s.progress + '%" class="p-orange"></span></div><span class="pct">' + s.progress + "%</span>"
                     : "—") +
-                  "</td><td>" + fmtDate(s.started) + "</td></tr>"
+                  "</td><td>" +
+                  fmtDate(s.started) +
+                  (s.delivered ? " → " + fmtDate(s.delivered) : "") +
+                  '</td><td><span class="row-actions">' +
+                  '<button class="icon-btn svc-edit" type="button" title="Edit service">' + icoPencil() + "</button>" +
+                  '<button class="icon-btn danger svc-del" type="button" title="Delete service">' + icoTrash() + "</button>" +
+                  "</span></td></tr>"
                 );
               })
               .join("") +
             "</tbody></table>"
-          : '<p class="empty-cell pad">Nothing in progress right now.</p>') +
+          : '<div class="empty-state"><span class="es-icon">' + icoWrenchSm() + "</span><h3>No services yet</h3>" +
+            '<p>Track this client\'s projects and subscriptions here — builds, hosting plans, SEO work.</p>' +
+            '<button class="btn primary" id="svc-add-empty" type="button">Add First Service</button></div>') +
         "</div>" +
-
-        '<div class="card"><div class="card-head"><h2>Purchased services</h2></div>' +
-        '<table class="data-table"><thead><tr><th>Service</th><th>Type</th><th>Price</th><th>Status</th><th>Delivered</th></tr></thead><tbody>' +
-        completed
-          .concat(subs.filter(function (s) { return s.status !== "completed"; }))
-          .map(function (s) {
-            return (
-              "<tr><td><strong>" + esc(s.name) + "</strong></td><td>" +
-              esc(s.type) + "</td><td>" + money(s.price) +
-              (s.type === "subscription" ? "/mo" : "") + "</td><td>" +
-              statusBadge(s.status) + "</td><td>" +
-              fmtDate(s.delivered || s.started) + "</td></tr>"
-            );
-          })
-          .join("") +
-        "</tbody></table></div>" +
 
         '<div class="card"><div class="card-head"><h2>Tickets for this account</h2><a class="text-link" href="#/tickets">All tickets</a></div>' +
         (tickets.length
@@ -943,6 +1092,46 @@
       document.getElementById("acct-ticket").addEventListener("click", function () {
         api.getClients().then(function (clients) {
           newTicketModal(clients, c.id);
+        });
+      });
+      document.getElementById("acct-delete").addEventListener("click", function () {
+        confirmDeleteModal(
+          "Delete " + c.business,
+          "This permanently removes the account, its services, and every ticket and message attached to it. Type the business name to confirm.",
+          c.business,
+          function () {
+            api.deleteClient(c.id).then(function () {
+              log("client_deleted", c.account_number, "Deleted " + c.business);
+              toast("Client deleted");
+              closeModal();
+              location.hash = "#/accounts";
+            });
+          }
+        );
+      });
+
+      function openServiceModal(svc) {
+        serviceModal(c.id, svc, function () {
+          viewAccount(id);
+        });
+      }
+      var svcAdd = document.getElementById("svc-add");
+      if (svcAdd) svcAdd.addEventListener("click", function () { openServiceModal(null); });
+      var svcAddEmpty = document.getElementById("svc-add-empty");
+      if (svcAddEmpty) svcAddEmpty.addEventListener("click", function () { openServiceModal(null); });
+      viewEl.querySelectorAll("tr[data-svc]").forEach(function (row) {
+        var sid = row.getAttribute("data-svc");
+        var svc = services.find(function (s) { return String(s.id) === String(sid); });
+        row.querySelector(".svc-edit").addEventListener("click", function () {
+          openServiceModal(svc);
+        });
+        row.querySelector(".svc-del").addEventListener("click", function () {
+          if (!confirm('Delete "' + svc.name + '"?')) return;
+          api.deleteService(svc.id).then(function () {
+            log("service_deleted", c.account_number, "Removed service: " + svc.name);
+            toast("Service deleted");
+            viewAccount(id);
+          });
         });
       });
       document.getElementById("save-notes").addEventListener("click", function () {
@@ -1025,7 +1214,7 @@
     Promise.all([api.getTickets(), api.getClients(), api.getAgents()]).then(function (res) {
       var tickets = res[0];
       var clients = res[1];
-      var agents = res[2];
+      var agents = res[2].filter(function (a) { return a.active !== false; });
       var clientById = {};
       clients.forEach(function (c) { clientById[c.id] = c; });
 
@@ -1133,7 +1322,7 @@
     ]).then(function (res) {
       var t = res[0];
       var messages = res[1];
-      var agents = res[2];
+      var agents = res[2].filter(function (a) { return a.active !== false; });
       var snippets = res[3];
       if (!t) {
         viewEl.innerHTML = '<div class="card pad"><p>Ticket not found.</p></div>';
@@ -1240,6 +1429,7 @@
             ? '<a class="btn ghost full-w" href="mailto:' + esc(c.email) + "?subject=Re: " +
               encodeURIComponent(t.subject) + '">Open in Email App</a>'
             : "") +
+          '<button class="btn ghost full-w danger" id="tk-delete">Delete Ticket</button>' +
 
           (c
             ? '<div class="side-context"><h3>Client context</h3><dl class="kv small">' +
@@ -1376,6 +1566,23 @@
             saveTicket({ status: "open" }, "Ticket reopened");
           });
         }
+
+        document.getElementById("tk-delete").addEventListener("click", function () {
+          confirmDeleteModal(
+            "Delete " + t.id,
+            "This permanently removes the ticket and its whole conversation thread. Type the ticket ID to confirm.",
+            t.id,
+            function () {
+              api.deleteTicket(t.id).then(function () {
+                log("ticket_deleted", "", "Deleted ticket " + t.id + ": " + t.subject);
+                toast("Ticket deleted");
+                closeModal();
+                refreshNavCount();
+                location.hash = "#/tickets";
+              });
+            }
+          );
+        });
       });
     });
   }
@@ -1538,11 +1745,48 @@
   function viewActivity() {
     setActiveNav("activity");
     api.getActivity().then(function (items) {
+      var kinds = [];
+      var agents = [];
+      items.forEach(function (a) {
+        if (kinds.indexOf(a.kind) === -1) kinds.push(a.kind);
+        if (agents.indexOf(a.agent) === -1) agents.push(a.agent);
+      });
+
       viewEl.innerHTML =
-        '<div class="view-head"><div><h1>Activity</h1><p class="view-sub">Everything the team has done, newest first.</p></div></div>' +
-        '<div class="card pad"><ul class="feed big">' +
-        (items.length
-          ? items
+        '<div class="view-head"><div><h1>Activity</h1><p class="view-sub">Everything the team has done, newest first. This log is permanent.</p></div></div>' +
+        '<div class="filter-bar">' +
+        '<input type="search" id="act-search" class="input" placeholder="Search activity...">' +
+        '<select id="act-kind" class="input select"><option value="">All actions</option>' +
+        kinds
+          .map(function (k) {
+            return '<option value="' + esc(k) + '">' + esc(k.replace(/_/g, " ")) + "</option>";
+          })
+          .join("") +
+        "</select>" +
+        '<select id="act-agent" class="input select"><option value="">Everyone</option>' +
+        agents
+          .map(function (a) { return "<option>" + esc(a) + "</option>"; })
+          .join("") +
+        "</select></div>" +
+        '<div class="card pad"><ul class="feed big" id="act-list"></ul></div>';
+
+      function render() {
+        var q = document.getElementById("act-search").value.trim().toLowerCase();
+        var kind = document.getElementById("act-kind").value;
+        var who = document.getElementById("act-agent").value;
+        var rows = items.filter(function (a) {
+          if (kind && a.kind !== kind) return false;
+          if (who && a.agent !== who) return false;
+          if (
+            q &&
+            (a.detail || "").toLowerCase().indexOf(q) === -1 &&
+            (a.ref || "").toLowerCase().indexOf(q) === -1
+          )
+            return false;
+          return true;
+        });
+        document.getElementById("act-list").innerHTML = rows.length
+          ? rows
               .map(function (a) {
                 return (
                   '<li><span class="feed-dot ' + feedDot(a.kind) + '"></span><div><p>' +
@@ -1555,8 +1799,15 @@
                 );
               })
               .join("")
-          : "<li><p class='empty-cell'>No activity logged yet.</p></li>") +
-        "</ul></div>";
+          : "<li><p class='empty-cell'>" +
+            (items.length ? "Nothing matches those filters." : "No activity logged yet — actions the team takes will appear here.") +
+            "</p></li>";
+      }
+
+      document.getElementById("act-search").addEventListener("input", render);
+      document.getElementById("act-kind").addEventListener("change", render);
+      document.getElementById("act-agent").addEventListener("change", render);
+      render();
     });
   }
 
@@ -1565,20 +1816,34 @@
   function viewSnippets() {
     setActiveNav("snippets");
     api.getSnippets().then(function (snippets) {
-      var cats = [];
-      snippets.forEach(function (s) {
-        if (cats.indexOf(s.category) === -1) cats.push(s.category);
-      });
-
       viewEl.innerHTML =
         '<div class="view-head"><div><h1>Canned Replies</h1><p class="view-sub">Reusable responses. Use {name} for the client\'s first name and {agent} for yours.</p></div>' +
         '<button class="btn primary" id="sn-new">New Reply</button></div>' +
-        (snippets.length
+        '<div class="filter-bar"><input type="search" id="sn-search" class="input" placeholder="Search replies..."></div>' +
+        '<div id="sn-list"></div>';
+
+      function render() {
+        var q = document.getElementById("sn-search").value.trim().toLowerCase();
+        var visible = !q
+          ? snippets
+          : snippets.filter(function (s) {
+              return (
+                s.title.toLowerCase().indexOf(q) !== -1 ||
+                s.body.toLowerCase().indexOf(q) !== -1 ||
+                s.category.toLowerCase().indexOf(q) !== -1
+              );
+            });
+        var cats = [];
+        visible.forEach(function (s) {
+          if (cats.indexOf(s.category) === -1) cats.push(s.category);
+        });
+
+        document.getElementById("sn-list").innerHTML = visible.length
           ? cats
               .map(function (cat) {
                 return (
                   '<h2 class="guide-cat">' + esc(cat) + "</h2>" +
-                  snippets
+                  visible
                     .filter(function (s) { return s.category === cat; })
                     .map(function (s) {
                       return (
@@ -1594,31 +1859,45 @@
                 );
               })
               .join("")
-          : '<div class="card pad"><p class="empty-cell">No canned replies yet. Create your first one.</p></div>');
+          : '<div class="card"><div class="empty-state"><span class="es-icon">' + icoChat() + "</span>" +
+            "<h3>" + (snippets.length ? "No replies match" : "No canned replies yet") + "</h3>" +
+            "<p>" +
+            (snippets.length
+              ? "Try a different search."
+              : "Save the responses you type most so any agent can reuse them in one click.") +
+            "</p>" +
+            (snippets.length ? "" : '<button class="btn primary" id="sn-new-empty" type="button">Create First Reply</button>') +
+            "</div></div>";
+
+        var snNewEmpty = document.getElementById("sn-new-empty");
+        if (snNewEmpty) snNewEmpty.addEventListener("click", function () { snippetModal(null); });
+
+        viewEl.querySelectorAll(".snippet-card").forEach(function (card) {
+          var sid = card.getAttribute("data-id");
+          var s = snippets.find(function (x) { return String(x.id) === String(sid); });
+          card.querySelector(".sn-copy").addEventListener("click", function () {
+            navigator.clipboard.writeText(s.body).then(function () {
+              toast("Copied to clipboard");
+            });
+          });
+          card.querySelector(".sn-edit").addEventListener("click", function () {
+            snippetModal(s);
+          });
+          card.querySelector(".sn-del").addEventListener("click", function () {
+            if (!confirm('Delete "' + s.title + '"?')) return;
+            api.deleteSnippet(s.id).then(function () {
+              toast("Deleted");
+              viewSnippets();
+            });
+          });
+        });
+      }
 
       document.getElementById("sn-new").addEventListener("click", function () {
         snippetModal(null);
       });
-
-      viewEl.querySelectorAll(".snippet-card").forEach(function (card) {
-        var sid = card.getAttribute("data-id");
-        var s = snippets.find(function (x) { return String(x.id) === String(sid); });
-        card.querySelector(".sn-copy").addEventListener("click", function () {
-          navigator.clipboard.writeText(s.body).then(function () {
-            toast("Copied to clipboard");
-          });
-        });
-        card.querySelector(".sn-edit").addEventListener("click", function () {
-          snippetModal(s);
-        });
-        card.querySelector(".sn-del").addEventListener("click", function () {
-          if (!confirm('Delete "' + s.title + '"?')) return;
-          api.deleteSnippet(s.id).then(function () {
-            toast("Deleted");
-            viewSnippets();
-          });
-        });
-      });
+      document.getElementById("sn-search").addEventListener("input", render);
+      render();
     });
   }
 
@@ -1671,11 +1950,11 @@
       var tickets = res[1];
 
       viewEl.innerHTML =
-        '<div class="view-head"><div><h1>Team</h1><p class="view-sub">Workload across the support team.' +
+        '<div class="view-head"><div><h1>Team</h1><p class="view-sub">Roster and workload. Agents here appear in every assignee menu.</p></div>' +
+        '<button class="btn primary" id="agent-new">Add Agent</button></div>' +
         (api.mode === "supabase"
-          ? " Add agents in the Supabase Dashboard (agents table + Authentication)."
+          ? '<p class="hint" style="margin:-0.75rem 0 1.25rem;">Adding an agent here puts them on the roster. To let them sign in, also create their login: Supabase Dashboard → Authentication → Users → Add user (same email).</p>'
           : "") +
-        "</p></div></div>" +
         '<div class="team-grid">' +
         (agents.length
           ? agents
@@ -1684,16 +1963,25 @@
                 var open = mine.filter(function (t) { return t.status !== "resolved"; }).length;
                 var resolved = mine.filter(function (t) { return t.status === "resolved"; }).length;
                 return (
-                  '<div class="card pad team-card"><span class="chip-avatar lg">' +
+                  '<div class="card pad team-card' + (a.active === false ? " inactive" : "") +
+                  '" data-agent="' + a.id + '"><span class="chip-avatar lg">' +
                   initials(a.name) + "</span><h3>" + esc(a.name) +
+                  (a.active === false ? ' <span class="badge b-gray">Inactive</span>' : "") +
                   '</h3><p class="feed-meta">' + esc(a.role) + " · " + esc(a.email) +
                   '</p><div class="team-stats"><div><p class="stat-value sm">' + open +
                   '</p><p class="stat-label">Open</p></div><div><p class="stat-value sm">' +
-                  resolved + '</p><p class="stat-label">Resolved</p></div></div></div>'
+                  resolved + '</p><p class="stat-label">Resolved</p></div></div>' +
+                  '<div class="team-actions">' +
+                  '<button class="btn ghost sm ag-edit" type="button">Edit</button>' +
+                  '<button class="btn ghost sm ag-toggle" type="button">' +
+                  (a.active === false ? "Reactivate" : "Deactivate") +
+                  "</button></div></div>"
                 );
               })
               .join("")
-          : '<div class="card pad"><p class="empty-cell">No agents in the roster yet. Run supabase-upgrade.sql, then add rows to the agents table.</p></div>') +
+          : '<div class="card"><div class="empty-state"><span class="es-icon">' + icoUsers() + "</span>" +
+            "<h3>No agents on the roster yet</h3><p>Add your teammates so tickets can be assigned and workload tracked.</p>" +
+            '<button class="btn primary" id="agent-new-empty" type="button">Add First Agent</button></div></div>') +
         "</div>" +
         '<div class="card"><div class="card-head"><h2>Unassigned tickets</h2></div>' +
         (function () {
@@ -1717,7 +2005,69 @@
         })() +
         "</div>";
       bindRowLinks();
+
+      var agentNew = document.getElementById("agent-new");
+      if (agentNew) agentNew.addEventListener("click", function () { agentModal(null); });
+      var agentNewEmpty = document.getElementById("agent-new-empty");
+      if (agentNewEmpty) agentNewEmpty.addEventListener("click", function () { agentModal(null); });
+      viewEl.querySelectorAll(".team-card[data-agent]").forEach(function (card) {
+        var aid = card.getAttribute("data-agent");
+        var a = agents.find(function (x) { return String(x.id) === String(aid); });
+        card.querySelector(".ag-edit").addEventListener("click", function () {
+          agentModal(a);
+        });
+        card.querySelector(".ag-toggle").addEventListener("click", function () {
+          var makeActive = a.active === false;
+          api.updateAgent(a.id, { active: makeActive }).then(function () {
+            log("agent_updated", "", (makeActive ? "Reactivated " : "Deactivated ") + a.name);
+            toast(a.name + (makeActive ? " reactivated" : " deactivated"));
+            viewTeam();
+          });
+        });
+      });
     });
+  }
+
+  function agentModal(existing) {
+    var isNew = !existing;
+    var a = existing || {};
+    openModal(
+      isNew ? "Add agent" : "Edit " + a.name,
+      '<div class="form-grid">' +
+        field("ag-name", "Full name", a.name) +
+        field("ag-email", "Email", a.email, "email") +
+        field("ag-role", "Role", a.role || "Support Agent") +
+        "</div>" +
+        (api.mode === "supabase"
+          ? '<p class="hint">This adds them to the roster. Create their sign-in separately: Supabase Dashboard → Authentication → Users → Add user with the same email.</p>'
+          : "") +
+        '<div class="btn-row"><button class="btn primary" id="ag-save">' +
+        (isNew ? "Add Agent" : "Save Changes") +
+        '</button><button class="btn ghost" id="ag-cancel">Cancel</button></div>',
+      function (wrap) {
+        wrap.querySelector("#ag-cancel").addEventListener("click", closeModal);
+        wrap.querySelector("#ag-save").addEventListener("click", function () {
+          var data = {
+            name: val("ag-name"),
+            email: val("ag-email"),
+            role: val("ag-role") || "Support Agent"
+          };
+          if (!data.name || !data.email) {
+            toast("Name and email are required", "warn");
+            return;
+          }
+          var p = isNew ? api.createAgent(data) : api.updateAgent(a.id, data);
+          p.then(function () {
+            log(isNew ? "agent_added" : "agent_updated", "", (isNew ? "Added " : "Updated ") + data.name);
+            toast(isNew ? "Agent added to roster" : "Agent updated");
+            closeModal();
+            viewTeam();
+          }).catch(function (e) {
+            toast("Could not save: " + (e.message || "unknown error"), "warn");
+          });
+        });
+      }
+    );
   }
 
   /* ======================= Settings ======================= */
@@ -1753,6 +2103,17 @@
         : "") +
       "</div>" +
 
+      (live
+        ? '<div class="card pad"><h2>Your password</h2>' +
+          '<p class="hint">Changes the password for ' + esc(agent.email) + " immediately.</p>" +
+          '<div class="form-grid">' +
+          '<label>New password<input id="pw-new" class="input" type="password" autocomplete="new-password"></label>' +
+          '<label>Repeat it<input id="pw-confirm" class="input" type="password" autocomplete="new-password"></label>' +
+          "</div>" +
+          '<div class="btn-row"><button class="btn primary" id="pw-save">Change Password</button>' +
+          '<span class="hint" id="pw-status"></span></div></div>'
+        : "") +
+
       '<div class="card pad"><h2>Data export</h2>' +
       '<p class="hint">Download a snapshot of panel data.</p>' +
       '<div class="btn-row">' +
@@ -1783,12 +2144,47 @@
           agent_name: agent.name
         })
         .then(function (r) {
-          out.textContent =
-            r.ok && r.email_status === "sent"
-              ? "Working — test email sent to " + agent.email
-              : "Not delivering yet: " + (r.error || "function not deployed or RESEND_API_KEY missing");
+          if (r.ok && r.email_status === "sent") {
+            localStorage.setItem("velo_email_ok", "1");
+            out.textContent = "Working — test email sent to " + agent.email;
+          } else {
+            out.textContent =
+              "Not delivering yet: " + (r.error || "function not deployed or RESEND_API_KEY missing");
+          }
         });
     });
+
+    var pwSave = document.getElementById("pw-save");
+    if (pwSave) {
+      pwSave.addEventListener("click", function () {
+        var pw = document.getElementById("pw-new").value;
+        var pw2 = document.getElementById("pw-confirm").value;
+        var status = document.getElementById("pw-status");
+        if (pw.length < 8) {
+          status.textContent = "Use at least 8 characters.";
+          return;
+        }
+        if (pw !== pw2) {
+          status.textContent = "Passwords do not match.";
+          return;
+        }
+        pwSave.disabled = true;
+        status.textContent = "Saving...";
+        api
+          .changePassword(pw)
+          .then(function () {
+            pwSave.disabled = false;
+            document.getElementById("pw-new").value = "";
+            document.getElementById("pw-confirm").value = "";
+            status.textContent = "";
+            toast("Password changed");
+          })
+          .catch(function (e) {
+            pwSave.disabled = false;
+            status.textContent = e.message || "Could not change password.";
+          });
+      });
+    }
 
     document.getElementById("exp-clients").addEventListener("click", function () {
       api.getClients().then(function (clients) {
@@ -1870,18 +2266,14 @@
   function viewGuides() {
     setActiveNav("guides");
     api.getGuides().then(function (guides) {
-      var cats = [];
-      guides.forEach(function (g) {
-        if (cats.indexOf(g.category) === -1) cats.push(g.category);
-      });
-
       viewEl.innerHTML =
-        '<div class="view-head"><div><h1>Help Guides</h1><p class="view-sub">Playbooks for the questions clients ask most.</p></div></div>' +
+        '<div class="view-head"><div><h1>Help Guides</h1><p class="view-sub">Playbooks for the questions clients ask most. Keep them current — edit any guide in place.</p></div>' +
+        '<button class="btn primary" id="guide-new">New Guide</button></div>' +
         '<input type="search" id="guide-search" class="input guide-search" placeholder="Search guides...">' +
-        '<div id="guide-list">' + renderGuides(guides, cats) + "</div>";
+        '<div id="guide-list"></div>';
 
-      document.getElementById("guide-search").addEventListener("input", function () {
-        var q = this.value.trim().toLowerCase();
+      function render() {
+        var q = document.getElementById("guide-search").value.trim().toLowerCase();
         var filtered = !q
           ? guides
           : guides.filter(function (g) {
@@ -1891,43 +2283,120 @@
                 g.steps.join(" ").toLowerCase().indexOf(q) !== -1
               );
             });
-        var fCats = [];
+        var cats = [];
         filtered.forEach(function (g) {
-          if (fCats.indexOf(g.category) === -1) fCats.push(g.category);
+          if (cats.indexOf(g.category) === -1) cats.push(g.category);
         });
+
         document.getElementById("guide-list").innerHTML = filtered.length
-          ? renderGuides(filtered, fCats)
-          : '<div class="card pad"><p class="empty-cell">No guides match.</p></div>';
+          ? cats
+              .map(function (cat) {
+                return (
+                  '<h2 class="guide-cat">' + esc(cat) + "</h2>" +
+                  filtered
+                    .filter(function (g) { return g.category === cat; })
+                    .map(function (g) {
+                      return (
+                        '<details class="guide card" data-guide="' + g.id + '"><summary><div><strong>' +
+                        esc(g.title) + "</strong><span>" + esc(g.summary) +
+                        '</span></div><span class="guide-actions">' +
+                        '<button class="icon-btn gd-edit" type="button" title="Edit guide">' + icoPencil() + "</button>" +
+                        '<button class="icon-btn danger gd-del" type="button" title="Delete guide">' + icoTrash() + "</button>" +
+                        '</span></summary><ol class="guide-steps">' +
+                        g.steps
+                          .map(function (s) { return "<li>" + esc(s) + "</li>"; })
+                          .join("") +
+                        "</ol></details>"
+                      );
+                    })
+                    .join("")
+                );
+              })
+              .join("")
+          : '<div class="card"><div class="empty-state"><span class="es-icon">' + icoBook() + "</span>" +
+            "<h3>" + (guides.length ? "No guides match" : "No guides yet") + "</h3>" +
+            "<p>" +
+            (guides.length
+              ? "Try a different search."
+              : "Write your first playbook so every agent answers the same way.") +
+            "</p></div></div>";
+
+        viewEl.querySelectorAll("details[data-guide]").forEach(function (d) {
+          var gid = d.getAttribute("data-guide");
+          var g = guides.find(function (x) { return String(x.id) === String(gid); });
+          d.querySelector(".gd-edit").addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            guideModal(g);
+          });
+          d.querySelector(".gd-del").addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (!confirm('Delete the guide "' + g.title + '"?')) return;
+            api.deleteGuide(g.id).then(function () {
+              log("guide_deleted", "", "Deleted guide: " + g.title);
+              toast("Guide deleted");
+              viewGuides();
+            });
+          });
+        });
+      }
+
+      document.getElementById("guide-new").addEventListener("click", function () {
+        guideModal(null);
       });
+      document.getElementById("guide-search").addEventListener("input", render);
+      render();
     });
   }
 
-  function renderGuides(guides, cats) {
-    return cats
-      .map(function (cat) {
-        return (
-          '<h2 class="guide-cat">' + esc(cat) + "</h2>" +
-          guides
-            .filter(function (g) {
-              return g.category === cat;
-            })
-            .map(function (g) {
-              return (
-                '<details class="guide card"><summary><div><strong>' +
-                esc(g.title) + "</strong><span>" + esc(g.summary) +
-                '</span></div></summary><ol class="guide-steps">' +
-                g.steps
-                  .map(function (s) {
-                    return "<li>" + esc(s) + "</li>";
-                  })
-                  .join("") +
-                "</ol></details>"
-              );
-            })
-            .join("")
-        );
-      })
-      .join("");
+  function guideModal(existing) {
+    var isNew = !existing;
+    var g = existing || {};
+    openModal(
+      isNew ? "New guide" : "Edit guide",
+      '<div class="form-grid">' +
+        field("gd-title", "Title", g.title) +
+        field("gd-cat", "Category", g.category || "General") +
+        '<label class="full">One-line summary<input id="gd-summary" class="input" type="text" value="' +
+        esc(g.summary || "") + '"></label>' +
+        '<label class="full">Steps<textarea id="gd-steps" class="input textarea tall">' +
+        esc((g.steps || []).join("\n")) +
+        "</textarea></label></div>" +
+        '<p class="steps-hint">One step per line — each line becomes a numbered step.</p>' +
+        '<div class="btn-row"><button class="btn primary" id="gd-save">' +
+        (isNew ? "Create Guide" : "Save Guide") +
+        '</button><button class="btn ghost" id="gd-cancel">Cancel</button></div>',
+      function (wrap) {
+        wrap.querySelector("#gd-cancel").addEventListener("click", closeModal);
+        wrap.querySelector("#gd-save").addEventListener("click", function () {
+          var steps = document
+            .getElementById("gd-steps")
+            .value.split("\n")
+            .map(function (s) { return s.trim(); })
+            .filter(Boolean);
+          var data = {
+            title: val("gd-title"),
+            category: val("gd-cat") || "General",
+            summary: val("gd-summary"),
+            steps: steps
+          };
+          if (!data.title || !steps.length) {
+            toast("A title and at least one step are required", "warn");
+            return;
+          }
+          var p = isNew ? api.createGuide(data) : api.updateGuide(g.id, data);
+          p.then(function () {
+            log(isNew ? "guide_added" : "guide_updated", "", (isNew ? "New guide: " : "Updated guide: ") + data.title);
+            toast(isNew ? "Guide created" : "Guide saved");
+            closeModal();
+            viewGuides();
+          }).catch(function (e) {
+            toast("Could not save: " + (e.message || "unknown error"), "warn");
+          });
+        });
+      }
+    );
   }
 
   function bindRowLinks() {
@@ -1976,6 +2445,21 @@
   }
   function icoTrend() {
     return svgWrap('<path d="M22 7l-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/>');
+  }
+  function icoPencil() {
+    return svgWrap('<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>');
+  }
+  function icoTrash() {
+    return svgWrap('<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>');
+  }
+  function icoWrenchSm() {
+    return svgWrap('<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-2.4z"/>');
+  }
+  function icoChat() {
+    return svgWrap('<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>');
+  }
+  function icoBook() {
+    return svgWrap('<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>');
   }
 
   /* ======================= Boot ======================= */

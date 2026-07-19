@@ -2,32 +2,40 @@
 
 Internal panel for the support team: dashboard, full ticket system with real
 email replies, client account management, reports, activity log, canned
-replies, team workload, and help guides. Lives at `/admin/` (later
+replies, team management, and editable help guides. Warm editorial design:
+Sentient serif headings + General Sans UI. Lives at `/admin/` (later
 admin.velocube.net).
 
 ## Features
 
 - **Dashboard** — open/urgent/unassigned/overdue tickets, MRR, active clients,
   14-day ticket volume chart, live activity feed, upcoming renewals, storage
-  alerts, pipeline value, quick actions.
+  alerts, pipeline value, quick actions, and a dismissable getting-started
+  checklist while the workspace is new.
 - **Tickets** — status tabs, search, priority/assignee/source filters, SLA
   "waiting" chips (green under 8h, amber under 24h, red over), tags,
-  urgent-first sorting.
+  urgent-first sorting, delete with type-to-confirm.
 - **Ticket workspace** — full thread, reply-to-client vs internal-note modes,
   canned reply insertion with `{name}`/`{agent}` personalization, per-message
   email delivery status (queued/sent/failed), one-click resolve/reopen,
   client context sidebar.
 - **Email delivery** — replies are emailed to the client through a Supabase
   Edge Function backed by Resend (see setup below).
-- **Accounts** — search + plan/status filters, create and edit clients,
-  CSV export, per-account stats, services, tickets, and internal notes.
+- **Accounts** — search + plan/status filters, create/edit/delete clients
+  (type-to-confirm delete), full service management (add/edit/delete projects
+  and subscriptions with progress tracking), CSV export, per-account stats,
+  tickets, and internal notes.
 - **Reports** — MRR, lifetime revenue, resolution rate, 6-month revenue
   chart, top clients by value, workload breakdowns.
-- **Activity** — a full audit feed of everything agents do.
-- **Canned Replies** — create/edit/delete reusable responses by category.
-- **Team** — per-agent open/resolved counts and the unassigned queue.
-- **Settings** — connection status, email delivery test button, CSV/JSON
-  exports, demo reset.
+- **Activity** — a permanent audit feed of everything agents do, filterable
+  by action, agent, and text.
+- **Canned Replies** — create/edit/delete reusable responses, searchable.
+- **Team** — add/edit/deactivate agents right from the panel (they feed every
+  assignee menu), per-agent open/resolved counts, and the unassigned queue.
+- **Help Guides** — database-backed playbooks any agent can create, edit,
+  and delete from the panel; searchable.
+- **Settings** — connection status, email delivery test button, change your
+  password (live mode), CSV/JSON exports, demo reset.
 - Keyboard: press `/` anywhere to jump to search.
 
 ## Demo Mode (works with zero setup)
@@ -39,12 +47,12 @@ browser (localStorage); reset them in Settings.
 ## Going live with Supabase
 
 1. Create a free project at [supabase.com](https://supabase.com).
-2. **SQL Editor -> New query**: run `supabase-setup.sql`, then run
-   `supabase-upgrade.sql` (tables for agents, canned replies, activity, tags,
-   internal notes, email tracking).
-3. Create agent logins: **Authentication -> Users -> Add user**. Also add each
-   agent to the `agents` table (Table Editor) so they appear in assignee
-   dropdowns and on the Team page.
+2. **SQL Editor -> New query**: run `supabase-clean-setup.sql` (tables, row
+   security, seed) and then `supabase-v3.sql` (delete permissions, agent
+   management, editable guides). Both are safe to re-run.
+3. Create agent logins: **Authentication -> Users -> Add user**. Then add each
+   agent to the roster from the panel's own Team page (same email) so they
+   appear in assignee dropdowns.
 4. **Project Settings -> API**: copy the Project URL and anon public key into
    `admin/js/config.js`. The top-bar chip switches from Demo Mode to Live.
 

@@ -1,37 +1,39 @@
 /* ==========================================================================
    Velocube Support Panel — admin.css
-   Light, colorful, professional. Dark ink sidebar, white cards, orange
-   brand accents, and status colors (blue/amber/green/red/purple).
+   Warm editorial: serif headings (Sentient), humanist sans UI (General
+   Sans), cream background, deep warm-brown sidebar, soft pastel status
+   chips, and the orange brand accent used with restraint.
    ========================================================================== */
 
 :root {
-  --bg: #f6f4f1;
+  --bg: #faf7f2;
   --card: #ffffff;
-  --ink: #14120f;
-  --ink-2: #5c584f;
-  --ink-3: #8b8579;
-  --border: rgba(20, 18, 15, 0.09);
-  --border-strong: rgba(20, 18, 15, 0.16);
+  --ink: #1c1814;
+  --ink-2: #5f574c;
+  --ink-3: #94897a;
+  --border: rgba(28, 24, 20, 0.08);
+  --border-strong: rgba(28, 24, 20, 0.15);
   --orange: #ff5c1a;
   --orange-bright: #ff8b4d;
   --orange-deep: #c2410c;
   --blue: #2563eb;
-  --blue-soft: #eff4ff;
+  --blue-soft: #eef4ff;
   --green: #15803d;
-  --green-soft: #ecfdf3;
+  --green-soft: #ebf7ef;
   --amber: #b45309;
-  --amber-soft: #fef6e7;
+  --amber-soft: #fdf4e3;
   --red: #dc2626;
-  --red-soft: #fdf0ef;
+  --red-soft: #fcf0ee;
   --purple: #7c3aed;
-  --purple-soft: #f4efff;
-  --gray: #6b7280;
-  --gray-soft: #f1f0ee;
-  --shadow-sm: 0 1px 2px rgba(20, 18, 15, 0.05);
-  --shadow-md: 0 10px 26px rgba(20, 18, 15, 0.08);
-  --radius: 14px;
-  --font-display: "Clash Display", "Segoe UI", Arial, sans-serif;
-  --font-body: "Switzer", "Segoe UI", Arial, sans-serif;
+  --purple-soft: #f4effc;
+  --gray: #78716c;
+  --gray-soft: #f3f0ea;
+  --side-bg: #171310;
+  --shadow-sm: 0 1px 2px rgba(28, 24, 20, 0.04), 0 2px 8px rgba(28, 24, 20, 0.03);
+  --shadow-md: 0 12px 32px rgba(28, 24, 20, 0.09);
+  --radius: 16px;
+  --font-display: "Sentient", Georgia, "Times New Roman", serif;
+  --font-body: "General Sans", "Segoe UI", Arial, sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -56,9 +58,9 @@ body {
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.18;
 }
 
 a {
@@ -186,7 +188,7 @@ button {
 
 /* Sidebar */
 .sidebar {
-  background: var(--ink);
+  background: var(--side-bg);
   color: #f4f1ec;
   display: flex;
   flex-direction: column;
@@ -261,9 +263,13 @@ button {
 }
 
 .side-nav a.active {
-  color: #fff;
-  background: linear-gradient(120deg, rgba(255, 92, 26, 0.28), rgba(255, 92, 26, 0.12));
-  box-shadow: inset 2px 0 0 var(--orange);
+  color: var(--ink);
+  background: var(--bg);
+  font-weight: 600;
+}
+
+.side-nav a.active svg {
+  color: var(--orange-deep);
 }
 
 .agent-card {
@@ -284,7 +290,7 @@ button {
   place-items: center;
   background: linear-gradient(155deg, var(--orange-bright), var(--orange));
   color: #fff;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.85rem;
   flex: none;
@@ -317,7 +323,7 @@ button {
   align-items: center;
   gap: 1rem;
   padding: 0.9rem 1.75rem;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(250, 247, 242, 0.92);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
   position: sticky;
@@ -415,7 +421,7 @@ button {
 }
 
 .view-head h1 {
-  font-size: 1.6rem;
+  font-size: 1.85rem;
 }
 
 .view-sub {
@@ -539,8 +545,8 @@ button {
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  padding: 0.22rem 0.6rem;
-  border-radius: 6px;
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
   white-space: nowrap;
 }
 
@@ -635,9 +641,9 @@ button {
   justify-content: center;
   gap: 0.4rem;
   border: 0;
-  border-radius: 9px;
-  padding: 0.6rem 1.15rem;
-  font-family: var(--font-display);
+  border-radius: 999px;
+  padding: 0.6rem 1.3rem;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.875rem;
   transition: background 0.2s, transform 0.2s var(--ease), box-shadow 0.2s;
@@ -1320,7 +1326,7 @@ a.stat-tile:hover {
 
 .tab {
   padding: 0.6rem 1rem;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.9rem;
   color: var(--ink-3);
@@ -1649,4 +1655,212 @@ a.stat-tile:hover {
     max-width: 100%;
     margin-left: 0;
   }
+}
+
+/* ==========================================================================
+   v3 components — empty states, getting-started checklist, row actions,
+   activity filters, guide editing, danger confirms
+   ========================================================================== */
+
+/* Designed empty states */
+.empty-state {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+}
+
+.empty-state .es-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  margin: 0 auto 0.9rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--gray-soft);
+  color: var(--ink-3);
+}
+
+.empty-state .es-icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.empty-state h3 {
+  font-size: 1.15rem;
+}
+
+.empty-state p {
+  color: var(--ink-2);
+  font-size: 0.9rem;
+  max-width: 24rem;
+  margin: 0.4rem auto 0;
+}
+
+.empty-state .btn {
+  margin-top: 1.1rem;
+}
+
+/* Getting-started checklist */
+.checklist-card {
+  position: relative;
+  background: linear-gradient(135deg, #fff, #fdf6ef);
+  border: 1px solid rgba(255, 92, 26, 0.22);
+}
+
+.checklist-card .card-head {
+  border-bottom-color: rgba(255, 92, 26, 0.14);
+}
+
+.checklist {
+  list-style: none;
+}
+
+.checklist li {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.checklist li:last-child {
+  border-bottom: 0;
+}
+
+.checklist .ck-mark {
+  flex: none;
+  width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--border-strong);
+  color: transparent;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.checklist li.done .ck-mark {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.checklist li.done .ck-text {
+  color: var(--ink-3);
+  text-decoration: line-through;
+}
+
+.checklist .ck-text {
+  flex: 1;
+  font-size: 0.925rem;
+}
+
+.checklist .ck-text small {
+  display: block;
+  color: var(--ink-3);
+  font-size: 0.8rem;
+}
+
+.checklist .btn {
+  flex: none;
+}
+
+/* Small inline row-action buttons (edit / delete on tables and cards) */
+.row-actions {
+  display: inline-flex;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background: #fff;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.icon-btn svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.icon-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.icon-btn.danger:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--red-soft);
+}
+
+/* Filter bars (activity, snippets) */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.filter-bar .input {
+  max-width: 15rem;
+}
+
+/* Guide cards with edit controls */
+.guide-actions {
+  display: flex;
+  gap: 0.35rem;
+  margin-left: auto;
+  flex: none;
+}
+
+.guide summary {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Danger confirm (type-to-confirm delete) */
+.confirm-danger {
+  background: var(--red-soft);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  font-size: 0.875rem;
+  color: var(--red);
+  margin-bottom: 1rem;
+}
+
+/* Steps editor textarea hint */
+.steps-hint {
+  font-size: 0.8rem;
+  color: var(--ink-3);
+  margin-top: -0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Serif italic accent for welcome line */
+.serif-note {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--ink-2);
+}
+
+/* Inactive agent card */
+.team-card.inactive {
+  opacity: 0.6;
+}
+
+.team-card .team-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 0.9rem;
 }

@@ -41,6 +41,16 @@ window.VeloAPI = (function () {
     o.snippetUpdates = o.snippetUpdates || {};
     o.deletedSnippets = o.deletedSnippets || [];
     o.activity = o.activity || [];
+    o.deletedTickets = o.deletedTickets || [];
+    o.deletedClients = o.deletedClients || [];
+    o.newServices = o.newServices || [];
+    o.serviceUpdates = o.serviceUpdates || {};
+    o.deletedServices = o.deletedServices || [];
+    o.newAgents = o.newAgents || [];
+    o.agentUpdates = o.agentUpdates || {};
+    o.newGuides = o.newGuides || [];
+    o.guideUpdates = o.guideUpdates || {};
+    o.deletedGuides = o.deletedGuides || [];
     return o;
   }
 
@@ -51,10 +61,14 @@ window.VeloAPI = (function () {
   function demoTickets() {
     var o = overlay();
     var base = window.VELO_DEMO.tickets.concat(o.newTickets);
-    return base.map(function (t) {
-      var patch = o.ticketUpdates[t.id] || {};
-      return Object.assign({ tags: "" }, t, patch);
-    });
+    return base
+      .filter(function (t) {
+        return o.deletedTickets.indexOf(t.id) === -1;
+      })
+      .map(function (t) {
+        var patch = o.ticketUpdates[t.id] || {};
+        return Object.assign({ tags: "" }, t, patch);
+      });
   }
 
   function demoMessages(ticketId) {
@@ -75,10 +89,49 @@ window.VeloAPI = (function () {
 
   function demoClients() {
     var o = overlay();
-    return window.VELO_DEMO.clients.concat(o.newClients).map(function (c) {
-      var patch = o.clientUpdates[c.id] || {};
-      return Object.assign({}, c, patch);
+    return window.VELO_DEMO.clients
+      .concat(o.newClients)
+      .filter(function (c) {
+        return o.deletedClients.indexOf(String(c.id)) === -1;
+      })
+      .map(function (c) {
+        var patch = o.clientUpdates[c.id] || {};
+        return Object.assign({}, c, patch);
+      });
+  }
+
+  function demoServices() {
+    var o = overlay();
+    return window.VELO_DEMO.services
+      .concat(o.newServices)
+      .filter(function (s) {
+        return o.deletedServices.indexOf(String(s.id)) === -1;
+      })
+      .map(function (s) {
+        var patch = o.serviceUpdates[s.id] || {};
+        return Object.assign({}, s, patch);
+      });
+  }
+
+  function demoAgents() {
+    var o = overlay();
+    return window.VELO_DEMO.agents.concat(o.newAgents).map(function (a) {
+      var patch = o.agentUpdates[a.id] || {};
+      return Object.assign({}, a, patch);
     });
+  }
+
+  function demoGuides() {
+    var o = overlay();
+    return window.VELO_DEMO.guides
+      .concat(o.newGuides)
+      .filter(function (g) {
+        return o.deletedGuides.indexOf(String(g.id)) === -1;
+      })
+      .map(function (g) {
+        var patch = o.guideUpdates[g.id] || {};
+        return Object.assign({}, g, patch);
+      });
   }
 
   function demoSnippets() {
@@ -171,14 +224,53 @@ window.VeloAPI = (function () {
 
     getServices: function (clientId) {
       return Promise.resolve(
-        window.VELO_DEMO.services.filter(function (s) {
+        demoServices().filter(function (s) {
           return String(s.client_id) === String(clientId);
         })
       );
     },
 
     getAllServices: function () {
-      return Promise.resolve(window.VELO_DEMO.services.slice());
+      return Promise.resolve(demoServices());
+    },
+
+    createService: function (data) {
+      var o = overlay();
+      var s = Object.assign(
+        { id: Date.now(), type: "project", price: 0, status: "scheduled", progress: null, started: null, delivered: null },
+        data
+      );
+      o.newServices.push(s);
+      saveOverlay(o);
+      return Promise.resolve(s);
+    },
+
+    updateService: function (id, patch) {
+      var o = overlay();
+      o.serviceUpdates[id] = Object.assign({}, o.serviceUpdates[id], patch);
+      saveOverlay(o);
+      return Promise.resolve();
+    },
+
+    deleteService: function (id) {
+      var o = overlay();
+      if (o.deletedServices.indexOf(String(id)) === -1) o.deletedServices.push(String(id));
+      saveOverlay(o);
+      return Promise.resolve();
+    },
+
+    deleteClient: function (id) {
+      var o = overlay();
+      if (o.deletedClients.indexOf(String(id)) === -1) o.deletedClients.push(String(id));
+      saveOverlay(o);
+      return Promise.resolve();
+    },
+
+    deleteTicket: function (id) {
+      var o = overlay();
+      if (o.deletedTickets.indexOf(id) === -1) o.deletedTickets.push(id);
+      saveOverlay(o);
+      return Promise.resolve();
     },
 
     getTickets: function () {
@@ -275,7 +367,29 @@ window.VeloAPI = (function () {
     },
 
     getAgents: function () {
-      return Promise.resolve(window.VELO_DEMO.agents.slice());
+      return Promise.resolve(demoAgents());
+    },
+
+    createAgent: function (data) {
+      var o = overlay();
+      var a = Object.assign(
+        { id: Date.now(), role: "Support Agent", active: true },
+        data
+      );
+      o.newAgents.push(a);
+      saveOverlay(o);
+      return Promise.resolve(a);
+    },
+
+    updateAgent: function (id, patch) {
+      var o = overlay();
+      o.agentUpdates[id] = Object.assign({}, o.agentUpdates[id], patch);
+      saveOverlay(o);
+      return Promise.resolve();
+    },
+
+    changePassword: function () {
+      return Promise.reject(new Error("Password change works in Live mode only."));
     },
 
     getSnippets: function () {
@@ -330,7 +444,32 @@ window.VeloAPI = (function () {
     },
 
     getGuides: function () {
-      return Promise.resolve(window.VELO_DEMO.guides);
+      return Promise.resolve(demoGuides());
+    },
+
+    createGuide: function (data) {
+      var o = overlay();
+      var g = Object.assign(
+        { id: Date.now(), category: "General", summary: "", steps: [], sort: 99 },
+        data
+      );
+      o.newGuides.push(g);
+      saveOverlay(o);
+      return Promise.resolve(g);
+    },
+
+    updateGuide: function (id, patch) {
+      var o = overlay();
+      o.guideUpdates[id] = Object.assign({}, o.guideUpdates[id], patch);
+      saveOverlay(o);
+      return Promise.resolve();
+    },
+
+    deleteGuide: function (id) {
+      var o = overlay();
+      if (o.deletedGuides.indexOf(String(id)) === -1) o.deletedGuides.push(String(id));
+      saveOverlay(o);
+      return Promise.resolve();
     }
   };
 
@@ -406,12 +545,30 @@ window.VeloAPI = (function () {
         return rows(sb.from("clients").update(patch).eq("id", id).select());
       },
 
+      deleteClient: function (id) {
+        return rows(sb.from("clients").delete().eq("id", id).select());
+      },
+
       getServices: function (clientId) {
         return rows(sb.from("services").select("*").eq("client_id", clientId));
       },
 
       getAllServices: function () {
         return rows(sb.from("services").select("*"));
+      },
+
+      createService: function (data) {
+        return rows(sb.from("services").insert(data).select()).then(function (d) {
+          return d[0];
+        });
+      },
+
+      updateService: function (id, patch) {
+        return rows(sb.from("services").update(patch).eq("id", id).select());
+      },
+
+      deleteService: function (id) {
+        return rows(sb.from("services").delete().eq("id", id).select());
       },
 
       getTickets: function () {
@@ -498,6 +655,10 @@ window.VeloAPI = (function () {
         });
       },
 
+      deleteTicket: function (id) {
+        return rows(sb.from("tickets").delete().eq("id", id).select());
+      },
+
       updateClientNotes: function (clientId, notes) {
         return rows(
           sb.from("clients").update({ notes: notes }).eq("id", clientId).select()
@@ -505,11 +666,28 @@ window.VeloAPI = (function () {
       },
 
       getAgents: function () {
-        return rows(sb.from("agents").select("*").eq("active", true).order("name"))
+        return rows(sb.from("agents").select("*").order("name"))
           .catch(function () {
             // agents table missing (upgrade SQL not run yet)
             return [];
           });
+      },
+
+      createAgent: function (data) {
+        return rows(sb.from("agents").insert(data).select()).then(function (d) {
+          return d[0];
+        });
+      },
+
+      updateAgent: function (id, patch) {
+        return rows(sb.from("agents").update(patch).eq("id", id).select());
+      },
+
+      changePassword: function (newPassword) {
+        return sb.auth.updateUser({ password: newPassword }).then(function (res) {
+          if (res.error) throw new Error(res.error.message);
+          return true;
+        });
       },
 
       getSnippets: function () {
@@ -558,9 +736,35 @@ window.VeloAPI = (function () {
       },
 
       getGuides: function () {
-        // Guides ship with the panel; they are agent documentation,
-        // not client data, so no table needed.
-        return Promise.resolve(window.VELO_DEMO.guides);
+        // DB-backed so staff can edit playbooks from the panel; falls
+        // back to the built-in set if the guides table isn't there yet
+        // (supabase-v3.sql not run).
+        return rows(sb.from("guides").select("*").order("sort").order("title"))
+          .then(function (d) {
+            if (!d.length) return window.VELO_DEMO.guides;
+            return d.map(function (g) {
+              return Object.assign({}, g, {
+                steps: Array.isArray(g.steps) ? g.steps : []
+              });
+            });
+          })
+          .catch(function () {
+            return window.VELO_DEMO.guides;
+          });
+      },
+
+      createGuide: function (data) {
+        return rows(sb.from("guides").insert(data).select()).then(function (d) {
+          return d[0];
+        });
+      },
+
+      updateGuide: function (id, patch) {
+        return rows(sb.from("guides").update(patch).eq("id", id).select());
+      },
+
+      deleteGuide: function (id) {
+        return rows(sb.from("guides").delete().eq("id", id).select());
       }
     };
   }

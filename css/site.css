@@ -2152,6 +2152,49 @@ body.home-theme h2 {
   transform: translateX(3px);
 }
 
+/* ---- Notable Projects: framed logo tiles ----
+   Real client logos arrive with wildly inconsistent backgrounds and
+   aspect ratios (transparent, white, grey, warm gradient; square vs
+   wide). The frame normalizes all of it into one consistent white tile
+   so the grid reads as a single designed row, not a patchwork. ---- */
+.project-card {
+  text-align: center;
+  color: var(--htext);
+}
+
+.project-card:hover {
+  color: var(--htext);
+}
+
+.project-logo-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  background: var(--hbg-soft);
+  border: 1px solid var(--hborder);
+  padding: 1.1rem;
+  margin-bottom: 1.1rem;
+  overflow: hidden;
+}
+
+.project-logo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.project-card h3 {
+  font-size: 1.05rem;
+}
+
+.project-card .card-link {
+  color: var(--htext-faint);
+  font-weight: 500;
+}
+
 @media (max-width: 900px) {
   .feature-grid-light,
   .feature-grid-light.cols-4 {

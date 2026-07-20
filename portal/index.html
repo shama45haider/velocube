@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Client Portal | Velocube</title>
+
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&amp;f[]=switzer@400,500,600&amp;f[]=boska@400,500i&amp;display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/portal.css">
+</head>
+<body>
+
+  <!-- ================= Login ================= -->
+  <div class="login-screen" id="login-screen" hidden>
+    <div class="login-card">
+      <a class="login-brand" href="../index.html">
+        <img src="../assets/glyph.png" alt="" width="274" height="315">
+        <span class="brand-word"><span class="bw-velo">Velo</span>cube</span>
+      </a>
+      <h1 class="login-title">Client Portal</h1>
+      <p class="login-sub">Sign in to track your project, message the team, and manage your plan.</p>
+
+      <form id="login-form" novalidate>
+        <label>Email
+          <input class="input" id="login-email" type="email" autocomplete="username" required>
+        </label>
+        <label>Password
+          <input class="input" id="login-password" type="password" autocomplete="current-password" required>
+        </label>
+        <p class="login-error" id="login-error" role="alert"></p>
+        <button class="btn primary full-w" type="submit" id="login-submit">Sign In</button>
+      </form>
+
+      <p class="login-help">
+        Need access? Email <a href="mailto:hr@velocube.net">hr@velocube.net</a> and we'll set you up.
+      </p>
+      <a class="login-back" href="../index.html">Back to velocube.net</a>
+    </div>
+  </div>
+
+  <!-- ================= Not linked ================= -->
+  <div class="login-screen" id="unlinked-screen" hidden>
+    <div class="login-card">
+      <div class="login-brand">
+        <img src="../assets/glyph.png" alt="" width="274" height="315">
+        <span class="brand-word"><span class="bw-velo">Velo</span>cube</span>
+      </div>
+      <h1 class="login-title">Almost there</h1>
+      <p class="login-sub">
+        Your login works, but it isn't linked to a client account yet. Our team
+        needs to connect it before your project shows up here.
+      </p>
+      <p class="login-help">
+        Email <a href="mailto:hr@velocube.net">hr@velocube.net</a> or call
+        <a href="tel:+17186350662">(718) 635-0662</a> and we'll finish setting up your access.
+      </p>
+      <button class="btn ghost full-w" type="button" id="unlinked-logout">Sign Out</button>
+    </div>
+  </div>
+
+  <!-- ================= App ================= -->
+  <div class="app" id="app" hidden>
+    <aside class="sidebar" id="sidebar">
+      <a class="side-brand" href="../index.html">
+        <img src="../assets/glyph.png" alt="" width="274" height="315">
+        <div>
+          <span class="brand-word"><span class="bw-velo">Velo</span>cube</span>
+          <span class="panel-tag">Client Portal</span>
+        </div>
+      </a>
+
+      <nav class="side-nav" aria-label="Portal navigation">
+        <a href="#/" data-nav="home">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+          <span>Home</span>
+          <span class="nav-count" id="nav-todo-count" hidden></span>
+        </a>
+        <a href="#/project" data-nav="project">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>My Project</span>
+        </a>
+        <a href="#/messages" data-nav="messages">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Messages</span>
+          <span class="nav-count" id="nav-msg-count" hidden></span>
+        </a>
+        <a href="#/preview" data-nav="preview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          <span>Live Preview</span>
+        </a>
+        <a href="#/documents" data-nav="documents">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/></svg>
+          <span>Documents</span>
+          <span class="nav-count" id="nav-doc-count" hidden></span>
+        </a>
+        <a href="#/addons" data-nav="addons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          <span>Add-ons</span>
+        </a>
+        <a href="#/hosting" data-nav="hosting">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="6" rx="1.5"/><rect x="2" y="15" width="20" height="6" rx="1.5"/><path d="M6 6h.01M6 18h.01"/></svg>
+          <span>Hosting</span>
+        </a>
+        <a href="#/account" data-nav="account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+          <span>Account</span>
+        </a>
+      </nav>
+
+      <div class="client-card">
+        <span class="client-avatar" id="client-avatar"></span>
+        <p>
+          <span class="client-name" id="client-name"></span>
+          <span class="client-meta" id="client-meta"></span>
+        </p>
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="topbar">
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <p class="topbar-title" id="topbar-title">Home</p>
+        <a class="btn ghost sm" href="#/messages" id="topbar-help">Message the team</a>
+        <button class="btn ghost sm" id="logout-btn" type="button">Sign Out</button>
+      </div>
+
+      <main id="view"></main>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

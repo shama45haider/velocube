@@ -44,12 +44,24 @@ Empty the two values in `js/config.js` and the panel runs on built-in demo
 data. Login: `demo@velocube.net` / `VeloDemo2026`. All changes persist in the
 browser (localStorage); reset them in Settings.
 
+## Client portal
+
+There is now a client-facing portal at `/portal/` sharing this same Supabase
+project and tables — a client's message lands in your ticket threads, and
+project updates you post show up on their dashboard.
+
+**Important:** `supabase-portal.sql` re-scopes every row-level security policy
+so clients see only their own rows and never see `internal = true` messages or
+`clients.notes`. Run it before creating any client login. See
+[portal/README.md](../portal/README.md) for the onboarding steps.
+
 ## Going live with Supabase
 
 1. Create a free project at [supabase.com](https://supabase.com).
 2. **SQL Editor -> New query**: run `supabase-clean-setup.sql` (tables, row
-   security, seed) and then `supabase-v3.sql` (delete permissions, agent
-   management, editable guides). Both are safe to re-run.
+   security, seed), then `supabase-v3.sql` (delete permissions, agent
+   management, editable guides), then `supabase-portal.sql` (client portal
+   tables and the security re-scoping). All are safe to re-run.
 3. Create agent logins: **Authentication -> Users -> Add user**. Then add each
    agent to the roster from the panel's own Team page (same email) so they
    appear in assignee dropdowns.

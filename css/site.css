@@ -450,16 +450,29 @@ p {
     display: flex;
   }
 
+  /* The header sets backdrop-filter, which makes it the containing block
+     for position:fixed descendants — so `inset: 0` here would size the
+     menu to the 72px header rather than the viewport, clipping most of
+     the links. The header is pinned at the viewport's top-left, so
+     explicit viewport units give us the full-screen overlay we want.
+     dvh follows mobile browsers' collapsing address bar. */
   .nav-menu {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
     z-index: 110;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: flex-start;
     gap: 0.25rem;
-    padding: calc(var(--header-h) + 1.5rem) clamp(1.5rem, 6vw, 2.5rem) 2.5rem;
+    padding: calc(var(--header-h) + 1.5rem) clamp(1.5rem, 6vw, 2.5rem)
+      max(2.5rem, env(safe-area-inset-bottom));
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
     background: rgba(10, 9, 8, 0.97);
     -webkit-backdrop-filter: blur(18px);
     backdrop-filter: blur(18px);
@@ -3165,5 +3178,151 @@ body.home-theme .rate-row .leader {
 
   .rate-row .note {
     flex: 1 1 100%;
+  }
+}
+
+/* ==========================================================================
+   Mobile optimization
+   Comfortable tap targets, cleaner touch feedback, and safeguards against
+   long unbroken strings (emails, URLs) forcing horizontal scroll.
+   ========================================================================== */
+
+/* Remove the default blue-grey flash on tap; :active states below give
+   clearer, on-brand feedback instead. */
+a,
+button,
+.btn,
+summary,
+[role="tab"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Long emails and URLs must never push the layout sideways on a 320px screen. */
+body {
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 900px) {
+  /* ---- Tap targets ----
+     WCAG 2.5.5 asks for 44x44. Standalone navigation and CTA links were
+     sitting at 22-30px, which is a real miss on a phone. Inline links
+     inside prose keep their natural size (they're exempt, and inflating
+     them would wreck line spacing). */
+  .footer-col a,
+  .contact-list a,
+  .footer-bottom a {
+    min-height: 44px;
+  }
+
+  .footer-col li {
+    margin-bottom: 0.15rem;
+  }
+
+  .arrow-link,
+  .card-link,
+  .text-link,
+  .brand {
+    min-height: 44px;
+    padding-block: 0.35rem;
+  }
+
+  /* Phone numbers sitting inline in a sentence are one of the most-tapped
+     things on a phone. Padding grows the hit area without disturbing the
+     surrounding line box the way a min-height would. */
+  a[href^="tel:"],
+  a[href^="mailto:"] {
+    padding: 0.5rem 0.15rem;
+    margin: -0.5rem -0.15rem;
+  }
+
+  /* Buttons: full-width stacking reads better than orphaned half-width
+     buttons, and guarantees a generous target. */
+  .btn {
+    min-height: 3rem;
+  }
+
+  .hero-ctas .btn,
+  .cta-band .btn {
+    flex: 1 1 100%;
+  }
+
+  /* ---- Touch feedback ----
+     Phones have no hover, so hover-only affordances never fire. Give a
+     visible pressed state instead. */
+  .btn:active {
+    transform: scale(0.985);
+  }
+
+  .bracket-card:active,
+  .feature-card-light:active,
+  .svc-mini:active,
+  .price-card:active,
+  .plan-card:active {
+    transform: translateY(-1px) scale(0.995);
+  }
+
+  /* Card hover lifts are meaningless on touch and can leave a card stuck
+     in a raised state after a tap. */
+  .feature-card-light:hover,
+  .svc-mini:hover,
+  .price-card:hover,
+  .plan-card:hover,
+  .bracket-card:hover {
+    transform: none;
+  }
+
+  /* ---- Readability ---- */
+  .section-head p,
+  .view-sub,
+  .lede {
+    text-wrap: pretty;
+  }
+
+  /* Tables that can't shrink get their own scroll container rather than
+     dragging the whole page sideways. */
+  .rate-list,
+  .data-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Tighter gutters buy back meaningful width on small phones. */
+  :root {
+    --gutter: 1.15rem;
+  }
+
+  /* Stop oversized display type from overflowing at 320px. */
+  h1 {
+    font-size: clamp(2.1rem, 9vw, 3rem);
+  }
+
+  h2 {
+    font-size: clamp(1.65rem, 6.5vw, 2.2rem);
+  }
+
+  /* Respect notched devices so the footer isn't under the home indicator. */
+  .site-footer {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Filter tab rows scroll horizontally instead of wrapping into a
+     cramped multi-line block. */
+  .svc-filter {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    justify-content: flex-start;
+  }
+
+  .svc-filter::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-tab {
+    white-space: nowrap;
+    flex: none;
   }
 }

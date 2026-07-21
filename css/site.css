@@ -2153,216 +2153,95 @@ body.home-theme h2 {
 }
 
 /* ==========================================================================
-   Notable Projects — dark case-study band
-   Deliberately breaks from the light theme surrounding it: a premium,
-   near-black portfolio strip (agency-brochure territory) so the proof
-   points read as a designed showcase, not another light card grid.
-   Self-contained tokens because body.home-theme remaps --bg/--surface/etc
-   to the light palette; this section needs the original dark values
-   regardless of theme context. ========================================== */
-.notable-band {
-  --np-bg: #080706;
-  --np-surface: #131110;
-  --np-surface-2: #1a1613;
-  --np-border: rgba(244, 241, 236, 0.09);
-  --np-border-strong: rgba(244, 241, 236, 0.18);
-  --np-text: #f4f1ec;
-  --np-text-dim: #a49c91;
-  --np-text-faint: #6f685e;
-
-  position: relative;
-  background: var(--np-bg);
-  padding-block: var(--section-pad);
-  overflow: hidden;
-}
-
-.notable-glow {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(48rem 26rem at 15% 0%, rgba(255, 92, 26, 0.1), transparent 65%),
-    radial-gradient(40rem 24rem at 100% 100%, rgba(255, 139, 77, 0.06), transparent 60%);
-}
-
-.notable-band .container {
-  position: relative;
-}
-
-.notable-head {
-  max-width: 40rem;
-  margin-bottom: clamp(2.75rem, 5.5vw, 4rem);
-}
-
-.notable-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--np-text-dim);
-  margin-bottom: 1.25rem;
-}
-
-.notable-eyebrow::before {
-  content: "";
-  width: 2.25rem;
-  height: 1px;
-  background: linear-gradient(90deg, var(--orange), transparent);
-}
-
-.notable-band .notable-head h2 {
-  color: var(--np-text);
-  font-size: clamp(1.9rem, 4vw, 2.75rem);
-}
-
-.notable-head h2 .serif-accent {
-  color: var(--orange-bright);
-}
-
-.notable-head > p {
-  color: var(--np-text-dim);
-  margin-top: 1.1rem;
-  font-size: clamp(1.02rem, 1.5vw, 1.1rem);
-}
-
+   Notable Projects — faded logo wall
+   Transparent client logos sit directly on the light page, desaturated
+   and softened into the background; hovering, focusing, or tapping one
+   animates it back to full color. No tiles, no dark band.
+   ========================================================================== */
 .notable-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.25rem;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: end;
 }
 
-.notable-card {
-  position: relative;
-  display: block;
-  background: var(--np-surface);
-  border: 1px solid var(--np-border);
-  border-radius: var(--radius-lg);
-  padding: clamp(1.5rem, 2.5vw, 1.85rem);
-  color: var(--np-text);
-  transition: border-color 0.3s, background 0.3s, transform 0.35s var(--ease), box-shadow 0.35s;
-}
-
-.notable-card:hover {
-  color: var(--np-text);
-  border-color: var(--np-border-strong);
-  background: var(--np-surface-2);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.35);
-}
-
-.notable-card::before,
-.notable-card::after {
-  content: "";
-  position: absolute;
-  width: 0.9rem;
-  height: 0.9rem;
-  opacity: 0;
-  transition: opacity 0.3s, transform 0.3s var(--ease);
-}
-
-.notable-card::before {
-  top: -1px;
-  left: -1px;
-  border-top: 1.5px solid var(--orange);
-  border-left: 1.5px solid var(--orange);
-  transform: translate(4px, 4px);
-}
-
-.notable-card::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 1.5px solid var(--orange);
-  border-right: 1.5px solid var(--orange);
-  transform: translate(-4px, -4px);
-}
-
-.notable-card:hover::before,
-.notable-card:hover::after {
-  opacity: 1;
-  transform: translate(0, 0);
-}
-
-.notable-index {
-  display: block;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1.1rem;
-  color: var(--orange);
-  opacity: 0.85;
-  margin-bottom: 1.1rem;
-}
-
-.notable-logo {
+.notable-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: 12px;
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  padding: 1.1rem;
-  margin-bottom: 1.35rem;
-  overflow: hidden;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 16px;
+  color: var(--htext);
+  outline-offset: 6px;
 }
 
-.notable-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.notable-item:hover {
+  color: var(--htext);
 }
 
-.notable-card h3 {
+.notable-item img {
+  width: min(100%, 15rem);
+  height: auto;
+  filter: grayscale(1) opacity(0.45);
+  transform: scale(0.96);
+  transition: filter 0.5s var(--ease), transform 0.5s var(--ease);
+  will-change: filter, transform;
+}
+
+.notable-item:hover img,
+.notable-item:focus-visible img,
+.notable-item:active img {
+  filter: none;
+  transform: scale(1);
+}
+
+.notable-name {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.08rem;
-  color: var(--np-text);
+  font-size: 1.02rem;
+  margin-top: 1.1rem;
+  color: var(--htext-dim);
+  transition: color 0.35s;
 }
 
-.notable-tag {
+.notable-domain {
   font-size: 0.8rem;
-  color: var(--np-text-faint);
-  margin-top: 0.4rem;
+  color: var(--htext-faint);
+  margin-top: 0.15rem;
+  transition: color 0.35s;
 }
 
-.notable-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.85rem;
-  color: var(--orange-bright);
-  margin-top: 1.25rem;
-  padding-top: 1.1rem;
-  border-top: 1px solid var(--np-border);
-  width: 100%;
+.notable-item:hover .notable-name,
+.notable-item:focus-visible .notable-name,
+.notable-item:active .notable-name {
+  color: var(--htext);
 }
 
-.notable-link::after {
-  content: "→";
-  transition: transform 0.25s var(--ease);
+.notable-item:hover .notable-domain,
+.notable-item:focus-visible .notable-domain,
+.notable-item:active .notable-domain {
+  color: var(--orange-deep);
 }
 
-.notable-card:hover .notable-link::after {
-  transform: translateX(4px);
+/* Touch screens have no hover: keep logos a touch less faded so the wall
+   still reads clearly, and let :active supply the color pop on tap. */
+@media (hover: none) {
+  .notable-item img {
+    filter: grayscale(1) opacity(0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notable-item img {
+    transform: none;
+  }
 }
 
 @media (max-width: 900px) {
   .notable-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 560px) {
-  .notable-grid {
-    grid-template-columns: 1fr;
+    gap: 1.75rem 1.25rem;
   }
 }
 

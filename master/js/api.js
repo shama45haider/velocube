@@ -19,7 +19,7 @@ window.VeloMasterAPI = (function () {
      Sandbox adapter
      ====================================================================== */
   function makeSandboxAdapter() {
-    var MASTER = "master@velocube.net";
+    var MASTER = "ceo@velocube.net";
     var now = Date.now();
     function iso(daysAgo, hoursAgo) {
       return new Date(now - (daysAgo || 0) * 864e5 - (hoursAgo || 0) * 36e5).toISOString();
@@ -456,7 +456,7 @@ window.VeloMasterAPI = (function () {
       },
       logActivity: function (kind, ref, detail) {
         return sb.from("activity").insert({
-          agent: "Master (master@velocube.net)", kind: kind, ref: ref, detail: detail
+          agent: "Master (ceo@velocube.net)", kind: kind, ref: ref, detail: detail
         }).then(function () { return true; }, function () { return false; });
       }
     };

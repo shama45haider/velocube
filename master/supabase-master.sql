@@ -2,25 +2,25 @@
 -- Run this in the Supabase Dashboard -> SQL editor.
 -- Safe to re-run: every statement is idempotent.
 --
--- Master account: master@velocube.net
+-- Master account: ceo@velocube.net
 
 -- ---------------------------------------------------------------
 -- 1. Make the owner an agent.
 --    RLS across the whole database is keyed on is_agent(), so this
---    single row gives master@velocube.net full read/write access to
+--    single row gives ceo@velocube.net full read/write access to
 --    all business tables (clients, tickets, services, orders, etc.)
 --    through the normal panel client.
 --
---    If this project previously had an hr@velocube.net owner row
---    (from an earlier version of this script), retire it so it no
---    longer counts as an agent.
+--    Retire any owner row left over from an earlier version of this
+--    script (hr@velocube.net, master@velocube.net) so old emails no
+--    longer count as agents.
 -- ---------------------------------------------------------------
 insert into agents (name, email, role, active)
-values ('Velocube HQ', 'master@velocube.net', 'Owner', true)
+values ('Velocube HQ', 'ceo@velocube.net', 'Owner', true)
 on conflict (email) do update set active = true, role = 'Owner';
 
 update agents set active = false
-where lower(email) = 'hr@velocube.net';
+where lower(email) in ('hr@velocube.net', 'master@velocube.net');
 
 -- ---------------------------------------------------------------
 -- 2. is_master(): the single source of truth for "who is master".
@@ -36,7 +36,7 @@ create or replace function is_master()
   stable
   set search_path = public
 as $$
-  select lower(coalesce(auth.jwt() ->> 'email', '')) = 'master@velocube.net';
+  select lower(coalesce(auth.jwt() ->> 'email', '')) = 'ceo@velocube.net';
 $$;
 
 grant execute on function is_master() to authenticated;
@@ -54,4 +54,4 @@ alter table clients
   foreign key (auth_user_id) references auth.users (id) on delete set null;
 
 -- Done. Make sure the master-admin Edge Function is redeployed with
--- MASTER_EMAIL = "master@velocube.net" (see master/README.md).
+-- MASTER_EMAIL = "ceo@velocube.net" (see master/README.md).

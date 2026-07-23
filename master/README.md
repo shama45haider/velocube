@@ -1,7 +1,7 @@
 # Velocube Master Control
 
 Owner-only console at `velocube.net/master/`. Signs in exclusively as
-**master@velocube.net** and controls everything: every Supabase auth account
+**ceo@velocube.net** and controls everything: every Supabase auth account
 (create, reset password, ban, delete, link to a client), every customer
 record, tickets, team, orders, documents, announcements, and the audit log.
 
@@ -17,7 +17,7 @@ service_role key is used.
 Supabase Dashboard → SQL Editor → paste and run
 [`supabase-master.sql`](supabase-master.sql). Safe to re-run. It:
 
-- adds master@velocube.net to `agents` (grants full data access through RLS)
+- adds ceo@velocube.net to `agents` (grants full data access through RLS)
 - creates `is_master()` — the single place the master email is defined
 - fixes `clients.auth_user_id` so deleting a login unlinks the client
   instead of erroring
@@ -34,9 +34,9 @@ No secrets to configure — the function uses the automatically injected
 
 ### 3. Confirm
 
-Open `velocube.net/master/`, sign in as master@velocube.net, go to
+Open `velocube.net/master/`, sign in as ceo@velocube.net, go to
 **Settings → Check control link**. It should answer
-`OK — v1 answering as master@velocube.net`.
+`OK — v1 answering as ceo@velocube.net`.
 
 ## Sandbox mode
 

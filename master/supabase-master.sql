@@ -1,23 +1,33 @@
 -- Velocube Master Panel - database setup
--- Run this ONCE in the Supabase Dashboard -> SQL editor.
+-- Run this in the Supabase Dashboard -> SQL editor.
 -- Safe to re-run: every statement is idempotent.
+--
+-- Master account: master@velocube.net
 
 -- ---------------------------------------------------------------
 -- 1. Make the owner an agent.
 --    RLS across the whole database is keyed on is_agent(), so this
---    single row gives hr@velocube.net full read/write access to all
---    business tables (clients, tickets, services, orders, etc.)
+--    single row gives master@velocube.net full read/write access to
+--    all business tables (clients, tickets, services, orders, etc.)
 --    through the normal panel client.
+--
+--    If this project previously had an hr@velocube.net owner row
+--    (from an earlier version of this script), retire it so it no
+--    longer counts as an agent.
 -- ---------------------------------------------------------------
 insert into agents (name, email, role, active)
-values ('Velocube HQ', 'hr@velocube.net', 'Owner', true)
-on conflict (email) do nothing;
+values ('Velocube HQ', 'master@velocube.net', 'Owner', true)
+on conflict (email) do update set active = true, role = 'Owner';
+
+update agents set active = false
+where lower(email) = 'hr@velocube.net';
 
 -- ---------------------------------------------------------------
 -- 2. is_master(): the single source of truth for "who is master".
 --    Both the Master Panel frontend and the master-admin Edge
 --    Function call this. To change the master account later, edit
---    the email in this one function.
+--    the email in this one function (and MASTER_EMAIL in the Edge
+--    Function).
 -- ---------------------------------------------------------------
 create or replace function is_master()
   returns boolean
@@ -26,7 +36,7 @@ create or replace function is_master()
   stable
   set search_path = public
 as $$
-  select lower(coalesce(auth.jwt() ->> 'email', '')) = 'hr@velocube.net';
+  select lower(coalesce(auth.jwt() ->> 'email', '')) = 'master@velocube.net';
 $$;
 
 grant execute on function is_master() to authenticated;
@@ -43,5 +53,5 @@ alter table clients
   add constraint clients_auth_user_id_fkey
   foreign key (auth_user_id) references auth.users (id) on delete set null;
 
--- Done. Next step: deploy the master-admin Edge Function
--- (see master/README.md).
+-- Done. Make sure the master-admin Edge Function is redeployed with
+-- MASTER_EMAIL = "master@velocube.net" (see master/README.md).

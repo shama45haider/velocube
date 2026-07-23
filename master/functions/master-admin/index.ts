@@ -21,7 +21,7 @@
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
-const MASTER_EMAIL = "hr@velocube.net";
+const MASTER_EMAIL = "master@velocube.net";
 
 const ALLOWED_ORIGINS = [
   "https://velocube.net",

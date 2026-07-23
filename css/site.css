@@ -47,6 +47,11 @@
 }
 
 html {
+  /* Everything on this site is sized in rem, so this single value zooms
+     the whole page out a notch (headings, spacing, containers, all of
+     it) without touching individual rules. 44px tap targets stay fixed
+     in px elsewhere, so mobile accessibility is unaffected. */
+  font-size: 93.75%;
   scroll-padding-top: calc(var(--header-h) + 1rem);
   -webkit-text-size-adjust: 100%;
 }
@@ -427,8 +432,10 @@ p {
   display: none;
   position: relative;
   z-index: 120;
-  width: 2.75rem;
-  height: 2.75rem;
+  /* Fixed px, not rem: a tap target should stay at the accessibility
+     minimum regardless of the page-wide zoom level. */
+  width: 44px;
+  height: 44px;
   flex-direction: column;
   align-items: center;
   justify-content: center;

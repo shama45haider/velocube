@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Master Control — Velocube</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=technor@500,600&f[]=supreme@400,500,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/master.css">
+</head>
+<body>
+
+  <!-- ============ LOGIN ============ -->
+  <div id="login-screen" class="gate-screen">
+    <div class="gate-card">
+      <div class="gate-brand">
+        <span class="gate-mark">VELO<em>CUBE</em></span>
+        <span class="gate-sub">MASTER CONTROL</span>
+      </div>
+      <p class="gate-note">Owner console. This panel is restricted to a single authorized account.</p>
+      <form id="login-form" autocomplete="on">
+        <label class="field">
+          <span class="field-label">EMAIL</span>
+          <input type="email" id="login-email" required autocomplete="username" placeholder="you@velocube.net">
+        </label>
+        <label class="field">
+          <span class="field-label">PASSWORD</span>
+          <input type="password" id="login-password" required autocomplete="current-password" placeholder="••••••••••">
+        </label>
+        <p id="login-error" class="gate-error" hidden></p>
+        <button type="submit" class="btn btn-primary btn-block" id="login-btn">AUTHENTICATE</button>
+      </form>
+      <p class="gate-foot"><a href="../">velocube.net</a></p>
+    </div>
+  </div>
+
+  <!-- ============ LOCKOUT ============ -->
+  <div id="lockout-screen" class="gate-screen" hidden>
+    <div class="gate-card lockout">
+      <div class="lockout-flag">RESTRICTED</div>
+      <h1>This console is limited to the owner account.</h1>
+      <p class="gate-note">Your sign-in was valid, but this panel only opens for the master account.
+        You have been signed out. If you are staff, use the support panel instead.</p>
+      <div class="lockout-actions">
+        <a class="btn btn-ghost" href="../admin/">SUPPORT PANEL</a>
+        <button class="btn btn-primary" id="lockout-retry">TRY AGAIN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ APP ============ -->
+  <div id="app" hidden>
+    <header class="cmdbar">
+      <div class="cmdbar-top">
+        <a class="cmd-brand" href="#/overview">
+          <span class="cmd-mark">VELO<em>CUBE</em></span>
+          <span class="cmd-sub">MASTER CONTROL</span>
+        </a>
+        <div class="cmd-right">
+          <span id="mode-chip" class="mode-chip" hidden>SANDBOX</span>
+          <span id="session-email" class="session-email"></span>
+          <button id="signout-btn" class="btn btn-ghost btn-sm">SIGN OUT</button>
+        </div>
+      </div>
+      <nav class="cmd-nav" id="cmd-nav">
+        <a href="#/overview" data-nav="overview">OVERVIEW</a>
+        <a href="#/users" data-nav="users">ACCOUNTS</a>
+        <a href="#/clients" data-nav="clients">CLIENTS</a>
+        <a href="#/tickets" data-nav="tickets">TICKETS</a>
+        <a href="#/team" data-nav="team">TEAM</a>
+        <a href="#/commerce" data-nav="commerce">COMMERCE</a>
+        <a href="#/broadcast" data-nav="broadcast">BROADCAST</a>
+        <a href="#/activity" data-nav="activity">ACTIVITY</a>
+        <a href="#/settings" data-nav="settings">SETTINGS</a>
+      </nav>
+    </header>
+
+    <main id="view" class="view"></main>
+  </div>
+
+  <div id="modal-root"></div>
+  <div id="toast-root"></div>
+
+  <script src="js/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
